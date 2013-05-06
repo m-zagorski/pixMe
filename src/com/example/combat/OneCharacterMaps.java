@@ -243,8 +243,8 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 		
 			
-			int monstersCount= Integer.parseInt(currentMap.getNormalmonsters()) + Integer.parseInt(currentMap.getRangedmonsters())+ Integer.parseInt(currentMap.getShieldingmonsters());
-			//int monstersCount=1;
+			//int monstersCount= Integer.parseInt(currentMap.getNormalmonsters()) + Integer.parseInt(currentMap.getRangedmonsters())+ Integer.parseInt(currentMap.getShieldingmonsters());
+			int monstersCount=1;
 	/*
 				if(monstersCount>0){com.example.gamedata.Monster monsterFirst = allMonsters.get(new Random().nextInt(allMonsters.size()));
 				firstMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFirst.getIcon(), "drawable", getPackageName())); firstMonster= new NormalMonster(ourView, firstMonsterBitmap, 600,200, Integer.parseInt(monsterFirst.getHealth()), Integer.parseInt(monsterFirst.getArmor()), Integer.parseInt(monsterFirst.getDamage()),1, Integer.parseInt(appPrefs.characterLevel()),monsterFirst.getCoords(), monsterFirst.getType()); }

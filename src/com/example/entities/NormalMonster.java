@@ -33,7 +33,7 @@ public class NormalMonster implements Monsters{
 	public int armor;
 	public int damage;
 	private int difficulty;
-	private int playerLevel;
+	//private int playerLevel;
 	
 	String[] coords=null;
 
@@ -43,7 +43,7 @@ public class NormalMonster implements Monsters{
 		this.damage=damage;
 		this.health=health;
 		this.difficulty=difficulty;
-		this.playerLevel=playerLevel;
+		//this.playerLevel=playerLevel;
 		this.coords=coords.split(" ");
 		icon= bitmap;
 		ov=ourView;
@@ -57,9 +57,47 @@ public class NormalMonster implements Monsters{
 		ySpeed = 0;
 		destX = 0;
 		destY=0;
+		initializeStats(playerLevel, type);
 
 	}
 
+	
+	private void initializeStats(int playerLevel, String monsterType){
+		if(monsterType.equals("normal")){
+			armor+=playerLevel;
+			if(armor>45) { armor=45; }
+			while(playerLevel>0){ 
+				health+= health*0.25;
+				damage+= damage*0.3;
+				--playerLevel;
+			}
+		}
+		else if(monsterType.equals("shielding")){
+			armor+=3*playerLevel;
+			if(armor>75) { armor=75; }
+			while(playerLevel>0){
+				health+=health*0.4;
+				damage+=damage*0.15;
+				--playerLevel;
+			}
+		}
+		else if(monsterType.equals("ranged")){
+			while(playerLevel>0){
+				health+=health*0.2;
+				damage+=damage*0.5;
+				--playerLevel;
+			}
+		}
+		else if(monsterType.equals("boss")){
+			armor+=5*playerLevel;
+			if(armor>60) { armor=60;}
+			while(playerLevel>0){
+				health+=health*0.5;
+				damage+=damage*0.7;
+				--playerLevel;
+			}
+		}
+	}
 
 	public void onDraw(Canvas canvas) {
 
