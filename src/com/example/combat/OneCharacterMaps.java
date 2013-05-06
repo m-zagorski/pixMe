@@ -140,13 +140,10 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		    if( mapsCursor.moveToFirst()) {
 		        do {
 		            String name = mapsCursor.getString(maps.NAME_COLUMN);
-		            String normalMonsters = mapsCursor.getString(maps.NORMALMONSTERS_COLUMN);
-		            String rangedMonsters = mapsCursor.getString(maps.RANGEDMONSTERS_COLUMN);
-		            String shieldingMonsters = mapsCursor.getString(maps.SHIELDINGMONSTERS_COLUMN);
-		            String boss = mapsCursor.getString(maps.BOSSMONSTERS_COLUMN);
+		            String monstersCount = mapsCursor.getString(maps.MONSTERSCOUNT_COLUMN);
 		            String gold = mapsCursor.getString(maps.BASEGOLD_COLUMN);
 		            String exp = mapsCursor.getString(maps.BASEEXPERIENCE_COLUMN);
-		            Map newMap = new Map(name, normalMonsters, rangedMonsters, shieldingMonsters, boss, gold, exp);
+		            Map newMap = new Map(name, monstersCount, gold, exp);
 		            allMaps.add(newMap);
 		        } while ( mapsCursor.moveToNext());
 		    }
@@ -224,7 +221,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			 screenWidth = deviceDisplayMetrics.widthPixels;
 			 screenHeight = deviceDisplayMetrics.heightPixels;
 
-			 player=new MainCharacter(this, playerBitmap, 100, 150, 5, 0, 500,0,1000, "barbarian");
+			 player=new MainCharacter(this, playerBitmap, 100, 150, playerLevel,appPrefs.getCharacterClass());
 			 initializeMonsters(this);
 			 
 			//firstMonster= new NormalMonster(this, firstMonsterBitmap, 600,200, 1000, 50, 25, 5, 1,"9 0 5 3 8 6", "Normal");
@@ -248,7 +245,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		
 			
 			
-			int monstersCount=4;
+			int monstersCount=Integer.parseInt(currentMap.getMonstersCount());
 
 
 			if(monstersCount>0){

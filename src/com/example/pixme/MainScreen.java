@@ -173,12 +173,12 @@ public class MainScreen extends Activity {
 		gameDatabase.insertItem(new Item("defense", "white_angel_chest", "10", "2", "0", "1000"));
 		gameDatabase.insertItem(new Item("defense", "wooden_sword", "10", "2", "0", "1000"));
 		
-		gameDatabase.insertMap(new Map("green_land", "1", "0", "0", "no", "50", "102"));
-		gameDatabase.insertMap(new Map("green_land", "1", "2", "0", "no", "150", "358"));
-		gameDatabase.insertMap(new Map("haunted_forest2", "1", "0", "0", "no", "90", "162"));
-		gameDatabase.insertMap(new Map("haunted_forest2", "2", "0", "0", "no", "450", "500"));
-		gameDatabase.insertMonster(new com.example.gamedata.Monster("granade_black", "normal", "150", "20", "2", "9 0 5 3 8 6"));
-		gameDatabase.insertMonster(new com.example.gamedata.Monster("hydra", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMap(new Map("green_land", "1", "50", "102"));
+		gameDatabase.insertMap(new Map("green_land", "2", "150", "358"));
+		gameDatabase.insertMap(new Map("haunted_forest2","1", "90", "162"));
+		gameDatabase.insertMap(new Map("haunted_forest2","2", "450", "500"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("granade_black", "normal", "150", "50", "2", "9 0 5 3 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("hydra", "normal", "200", "55", "5", "9 1 0 0 8 6"));
 		
 		gameDatabase.close();	    
 	    //--

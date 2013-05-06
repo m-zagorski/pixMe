@@ -51,24 +51,15 @@ public class GameDatabase {
 	public static final String KEY_NAME = "name";
 	public static final String NAME_OPTIONS = "TEXT NOT NULL";
 	public static final int NAME_COLUMN = 1;
-	public static final String KEY_NORMALMONSTERS = "normalmonsters";
-	public static final String NORMALMONSTERS_OPTIONS = "TEXT NOT NULL";
-	public static final int NORMALMONSTERS_COLUMN = 2;
-	public static final String KEY_RANGEDMONSTERS = "rangedmonsters";
-	public static final String RANGEDMONSTERS_OPTIONS = "TEXT NOT NULL";
-	public static final int RANGEDMONSTERS_COLUMN = 3;
-	public static final String KEY_SHIELDINGMONSTERS = "shieldingmonsters";
-	public static final String SHIELDINGMONSTERS_OPTIONS = "TEXT NOT NULL";
-	public static final int SHIELDINGMONSTERS_COLUMN = 4;
-	public static final String KEY_BOSS = "boss";
-	public static final String BOSS_OPTIONS = "TEXT NOT NULL";
-	public static final int BOSSMONSTERS_COLUMN = 5;
+	public static final String KEY_MONSTERSCOUNT = "monsterscount";
+	public static final String MONSTERSCOUNT_OPTIONS = "TEXT NOT NULL";
+	public static final int MONSTERSCOUNT_COLUMN = 2;
 	public static final String KEY_BASEGOLD = "basegold";
 	public static final String BASEGOLD_OPTIONS = "TEXT NOT NULL";
-	public static final int BASEGOLD_COLUMN = 6;
+	public static final int BASEGOLD_COLUMN = 3;
 	public static final String KEY_BASEEXPERIENCE = "baseexperience";
 	public static final String BASEEXPERIENCE_OPTIONS = "TEXT NOT NULL";
-	public static final int BASEEXPERIENCE_COLUMN = 7;
+	public static final int BASEEXPERIENCE_COLUMN = 4;
 	//--
 	
 	//MONSTER VARIABLES
@@ -111,10 +102,7 @@ public class GameDatabase {
 	DB_TABLE_MAPS + " (" +
 	KEY_ID + " " + ID_OPTIONS + ", " +
 	KEY_NAME + " " + NAME_OPTIONS + ", " +
-	KEY_NORMALMONSTERS + " " + NORMALMONSTERS_OPTIONS + ", " +
-	KEY_RANGEDMONSTERS + " " + RANGEDMONSTERS_OPTIONS + ", " +
-	KEY_SHIELDINGMONSTERS + " " + SHIELDINGMONSTERS_OPTIONS + ", " +
-	KEY_BOSS + " " + BOSS_OPTIONS + ", " +
+	KEY_MONSTERSCOUNT + " " + MONSTERSCOUNT_OPTIONS + ", " +
 	KEY_BASEGOLD + " " + BASEGOLD_OPTIONS + ", " +
 	KEY_BASEEXPERIENCE + " " + BASEEXPERIENCE_OPTIONS +
 	");";
@@ -172,10 +160,7 @@ public class GameDatabase {
 	public long insertMap(Map map){
 		ContentValues newItemValues = new ContentValues();
 		newItemValues.put(KEY_NAME, map.getName());
-		newItemValues.put(KEY_NORMALMONSTERS, map.getNormalmonsters());
-		newItemValues.put(KEY_RANGEDMONSTERS, map.getRangedmonsters());
-		newItemValues.put(KEY_SHIELDINGMONSTERS, map.getShieldingmonsters());
-		newItemValues.put(KEY_BOSS, map.getBoss());
+		newItemValues.put(KEY_MONSTERSCOUNT, map.getMonstersCount());
 		newItemValues.put(KEY_BASEGOLD, map.getBasegold());
 		newItemValues.put(KEY_BASEEXPERIENCE, map.getBaseexperience());
 		return db.insert(DB_TABLE_MAPS, null, newItemValues);
@@ -224,7 +209,7 @@ public class GameDatabase {
 	   
 	   
 	   public Cursor getAllMaps(){
-		   String[] columns = {KEY_ID, KEY_NAME, KEY_NORMALMONSTERS, KEY_RANGEDMONSTERS, KEY_SHIELDINGMONSTERS, KEY_BOSS, KEY_BASEGOLD, KEY_BASEEXPERIENCE};
+		   String[] columns = {KEY_ID, KEY_NAME, KEY_MONSTERSCOUNT, KEY_BASEGOLD, KEY_BASEEXPERIENCE};
 		   return db.query(DB_TABLE_MAPS, columns, null, null, null, null, null);
 	   }
 	   

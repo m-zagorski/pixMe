@@ -82,6 +82,10 @@ public class GameSharedPreferences {
 		 return gamePrefs.getString(level, "-15");
 	 }
 	 
+	 public int getCharacterExp(){
+		 return Integer.parseInt(gamePrefs.getString(experience, "-152"));
+	 }
+	  
 	 public String getCharacterClass(){
 		 return gamePrefs.getString(classN, "noClazz");
 	 }

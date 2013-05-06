@@ -1,17 +1,13 @@
 package com.example.gamedata;
 
 public class Map {
-	private String name, normalmonsters, rangedmonsters, shieldingmonsters, boss, basegold, baseexperience;
+	private String name, monstersCount, basegold, baseexperience;
 
-	public Map(String name, String normalmonsters, String rangedmonsters,
-			String shieldingmonsters, String boss, String basegold,
+	public Map(String name, String monstersCount, String basegold,
 			String baseexperience) {
 		super();
 		this.name = name;
-		this.normalmonsters = normalmonsters;
-		this.rangedmonsters = rangedmonsters;
-		this.shieldingmonsters = shieldingmonsters;
-		this.boss = boss;
+		this.monstersCount= monstersCount;
 		this.basegold = basegold;
 		this.baseexperience = baseexperience;
 	}
@@ -24,37 +20,14 @@ public class Map {
 		this.name = name;
 	}
 
-	public String getNormalmonsters() {
-		return normalmonsters;
+	public String getMonstersCount() {
+		return monstersCount;
 	}
 
-	public void setNormalmonsters(String normalmonsters) {
-		this.normalmonsters = normalmonsters;
+	public void setMonstersCount(String monstersCount) {
+		this.monstersCount = monstersCount;
 	}
 
-	public String getRangedmonsters() {
-		return rangedmonsters;
-	}
-
-	public void setRangedmonsters(String rangedmonsters) {
-		this.rangedmonsters = rangedmonsters;
-	}
-
-	public String getShieldingmonsters() {
-		return shieldingmonsters;
-	}
-
-	public void setShieldingmonsters(String shieldingmonsters) {
-		this.shieldingmonsters = shieldingmonsters;
-	}
-
-	public String getBoss() {
-		return boss;
-	}
-
-	public void setBoss(String boss) {
-		this.boss = boss;
-	}
 
 	public String getBasegold() {
 		return basegold;

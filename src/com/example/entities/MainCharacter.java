@@ -32,7 +32,6 @@ public class MainCharacter implements Characters{
 	
 	//CHARACTER VARIABLES
 	private int level;
-	private long experience;
 	private long health;
 	private int armor;
 	private int damage;
@@ -43,13 +42,9 @@ public class MainCharacter implements Characters{
 
 	
 
-	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level, long experience, long health, int armor, int damage, String charClass) {
-		this.damage=damage;
-		this.health=health;
+	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level,String charClass) {
+
 		this.level=level;
-		this.experience= experience;
-		this.armor= armor;
-		this.damage=damage;
 		icon= bitmap;
 		ov=ourView;
 		height= icon.getHeight()/10;
@@ -67,18 +62,27 @@ public class MainCharacter implements Characters{
 	
 	private void initializeStats(String charClass){
 		if(charClass.equals("barbarian")){
+			health=300;
+			damage=50;
+			armor=10;
 			health+=health*(0.4*level);
 			damage+=damage*(0.3*level);
 			armor+= 2*level;
 			if(armor>60) { armor=60; }
 		}
 		else if(charClass.equals("hunter")){
+			health=250;
+			damage=60;
+			armor=5;
 			health+=health*(0.3*level);
 			damage+=damage*(0.4*level);
 			armor+= 1*level;
 			if(armor>60) { armor=60; }
 		}
 		else if(charClass.equals("wizard")){
+			health=200;
+			damage=70;
+			armor=1;
 			health+=health*(0.2*level);
 			damage+=damage*(0.6*level);
 		}
