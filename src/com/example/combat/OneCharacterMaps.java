@@ -60,9 +60,12 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	boolean playerAttack=true;
 	boolean monsterAttack=true;
 	long damage=0;
+	
+	
 
 	int yPlayer, yMonster;
 	int screenWidth, screenHeight;
+	int playerLevel;
 	
 	GameDatabase maps=null;
 	GameSharedPreferences appPrefs;
@@ -91,6 +94,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		v.setOnTouchListener(this);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		appPrefs = new GameSharedPreferences(context);
+		playerLevel= Integer.parseInt(appPrefs.characterLevel());
 		maps=new GameDatabase(this);
 		maps.open();
 		fillMapsList();
@@ -220,7 +224,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			 screenWidth = deviceDisplayMetrics.widthPixels;
 			 screenHeight = deviceDisplayMetrics.heightPixels;
 
-			 player=new MainCharacter(this, playerBitmap, 100, 150, 1, 0, 500,0,1000);
+			 player=new MainCharacter(this, playerBitmap, 100, 150, 5, 0, 500,0,1000, "barbarian");
 			 initializeMonsters(this);
 			 
 			//firstMonster= new NormalMonster(this, firstMonsterBitmap, 600,200, 1000, 50, 25, 5, 1,"9 0 5 3 8 6", "Normal");
@@ -243,28 +247,31 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 		
 			
-			//int monstersCount= Integer.parseInt(currentMap.getNormalmonsters()) + Integer.parseInt(currentMap.getRangedmonsters())+ Integer.parseInt(currentMap.getShieldingmonsters());
-			int monstersCount=1;
-	/*
-				if(monstersCount>0){com.example.gamedata.Monster monsterFirst = allMonsters.get(new Random().nextInt(allMonsters.size()));
-				firstMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFirst.getIcon(), "drawable", getPackageName())); firstMonster= new NormalMonster(ourView, firstMonsterBitmap, 600,200, Integer.parseInt(monsterFirst.getHealth()), Integer.parseInt(monsterFirst.getArmor()), Integer.parseInt(monsterFirst.getDamage()),1, Integer.parseInt(appPrefs.characterLevel()),monsterFirst.getCoords(), monsterFirst.getType()); }
-				if(monstersCount>1){com.example.gamedata.Monster monsterSecond = allMonsters.get(new Random().nextInt(allMonsters.size()));
-				secondMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterSecond.getIcon(), "drawable", getPackageName())); secondMonster= new NormalMonster(ourView, secondMonsterBitmap, 600,400, Integer.parseInt(monsterSecond.getHealth()), Integer.parseInt(monsterSecond.getArmor()), Integer.parseInt(monsterSecond.getDamage()),1, Integer.parseInt(appPrefs.characterLevel()),monsterSecond.getCoords(), monsterSecond.getType()); } 
-				if(monstersCount>2){com.example.gamedata.Monster monsterThird = allMonsters.get(new Random().nextInt(allMonsters.size()));
-				thirdMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterThird.getIcon(), "drawable", getPackageName())); thirdMonster= new NormalMonster(ourView, thirdMonsterBitmap, 500,300, Integer.parseInt(monsterThird.getHealth()), Integer.parseInt(monsterThird.getArmor()), Integer.parseInt(monsterThird.getDamage()),1, Integer.parseInt(appPrefs.characterLevel()),monsterThird.getCoords(), monsterThird.getType()); }
-				if(monstersCount>3) {
-					com.example.gamedata.Monster monsterFour = allMonsters.get(new Random().nextInt(allMonsters.size()));
-					fourthMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFour.getIcon(), "drawable", getPackageName()));	
-					thirdMonster= new NormalMonster(ourView, fourthMonsterBitmap, 500,300, Integer.parseInt(monsterFour.getHealth()), Integer.parseInt(monsterFour.getArmor()), Integer.parseInt(monsterFour.getDamage()),1, Integer.parseInt(appPrefs.characterLevel()),monsterFour.getCoords(), monsterFour.getType()); 
-				}
-				*/
 			
-		if(monstersCount>0){
+			int monstersCount=4;
+
+
+			if(monstersCount>0){
 			com.example.gamedata.Monster monsterFirst = allMonsters.get(new Random().nextInt(allMonsters.size()));
 			firstMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFirst.getIcon(), "drawable", getPackageName()));
-			firstMonster= new NormalMonster(ourView, firstMonsterBitmap, 600,200, Integer.parseInt(monsterFirst.getHealth()), 50, 100,1, 10,monsterFirst.getCoords(), monsterFirst.getType());
-		}
+			firstMonster=new NormalMonster(this, firstMonsterBitmap, 600,200,monsterFirst.getType(), Integer.parseInt(monsterFirst.getHealth()), Integer.parseInt(monsterFirst.getArmor()), Integer.parseInt(monsterFirst.getDamage()), playerLevel,monsterFirst.getCoords());
+			}
+			if(monstersCount>1){
+			com.example.gamedata.Monster monsterSecond = allMonsters.get(new Random().nextInt(allMonsters.size()));	
+			secondMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterSecond.getIcon(), "drawable", getPackageName()));
+			secondMonster=new NormalMonster(this, secondMonsterBitmap, 600,400,monsterSecond.getType(), Integer.parseInt(monsterSecond.getHealth()), Integer.parseInt(monsterSecond.getArmor()), Integer.parseInt(monsterSecond.getDamage()), playerLevel,monsterSecond.getCoords());
+			}
+			if(monstersCount>2){
+			com.example.gamedata.Monster monsterThird = allMonsters.get(new Random().nextInt(allMonsters.size()));
+			thirdMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterThird.getIcon(), "drawable", getPackageName())); 
+			thirdMonster=new NormalMonster(this, thirdMonsterBitmap, 500,300,monsterThird.getType(), Integer.parseInt(monsterThird.getHealth()), Integer.parseInt(monsterThird.getArmor()), Integer.parseInt(monsterThird.getDamage()), playerLevel,monsterThird.getCoords());}
+			if(monstersCount>3) {
+			com.example.gamedata.Monster monsterFour = allMonsters.get(new Random().nextInt(allMonsters.size()));
+			fourthMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFour.getIcon(), "drawable", getPackageName()));	
+			fourthMonster=new NormalMonster(this, fourthMonsterBitmap, 500,400,monsterFour.getType(), Integer.parseInt(monsterFour.getHealth()), Integer.parseInt(monsterFour.getArmor()), Integer.parseInt(monsterFour.getDamage()), playerLevel,monsterFour.getCoords()); 
+			}
 			
+
 			
 		}
 		protected void onDraw(Canvas canvas){	
@@ -306,8 +313,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			if(checkIfMonsterExists(2)){ canvas.drawText(""+secondMonster.getHealth(), secondMonster.getX()+30, secondMonster.getY(), healthNumbers);}
 			if(checkIfMonsterExists(3)){ canvas.drawText(""+thirdMonster.getHealth(), thirdMonster.getX()+30, thirdMonster.getY(), healthNumbers); }
 			if(checkIfMonsterExists(4)){ canvas.drawText(""+fourthMonster.getHealth(), fourthMonster.getX()+30, fourthMonster.getY(), healthNumbers); }
-			
-			//canvas.drawText(""+state, 300, 300, healthNumbers);
+	
 			//DRAW COOLDOWNS
 			canvas.drawText(""+firstSkillCd, 27, screenHeight/2, cooldowns);
 			//--

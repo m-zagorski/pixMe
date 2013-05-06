@@ -32,17 +32,15 @@ public class NormalMonster implements Monsters{
 	public long health;
 	public int armor;
 	public int damage;
-	private int difficulty;
 	//private int playerLevel;
 	
 	String[] coords=null;
 
 	public enum State { ONE, TWO, THREE}
 
-	public NormalMonster(OurView ourView, Bitmap bitmap, int x, int y, long health, int armor, int damage, int difficulty, int playerLevel,String coords, String type) {
+	public NormalMonster(OurView ourView, Bitmap bitmap, int x, int y,String monsterType, long health, int armor, int damage, int playerLevel,String coords) {
 		this.damage=damage;
 		this.health=health;
-		this.difficulty=difficulty;
 		//this.playerLevel=playerLevel;
 		this.coords=coords.split(" ");
 		icon= bitmap;
@@ -57,7 +55,7 @@ public class NormalMonster implements Monsters{
 		ySpeed = 0;
 		destX = 0;
 		destY=0;
-		initializeStats(playerLevel, type);
+		initializeStats(playerLevel,monsterType);
 
 	}
 
@@ -66,36 +64,24 @@ public class NormalMonster implements Monsters{
 		if(monsterType.equals("normal")){
 			armor+=playerLevel;
 			if(armor>45) { armor=45; }
-			while(playerLevel>0){ 
-				health+= health*0.25;
-				damage+= damage*0.3;
-				--playerLevel;
-			}
+			health+= health*(0.25*playerLevel);
+			damage+= damage*(0.3*playerLevel);
 		}
 		else if(monsterType.equals("shielding")){
 			armor+=3*playerLevel;
 			if(armor>75) { armor=75; }
-			while(playerLevel>0){
-				health+=health*0.4;
-				damage+=damage*0.15;
-				--playerLevel;
-			}
+			health+= health*(0.4*playerLevel);
+			damage+= damage*(0.15*playerLevel);
 		}
 		else if(monsterType.equals("ranged")){
-			while(playerLevel>0){
-				health+=health*0.2;
-				damage+=damage*0.5;
-				--playerLevel;
-			}
+			health+= health*(0.2*playerLevel);
+			damage+= damage*(0.5*playerLevel);
 		}
 		else if(monsterType.equals("boss")){
 			armor+=5*playerLevel;
 			if(armor>60) { armor=60;}
-			while(playerLevel>0){
-				health+=health*0.5;
-				damage+=damage*0.7;
-				--playerLevel;
-			}
+			health+= health*(0.5*playerLevel);
+			damage+= damage*(0.7*playerLevel);
 		}
 	}
 

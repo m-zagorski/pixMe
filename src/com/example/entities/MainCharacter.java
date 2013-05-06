@@ -43,9 +43,10 @@ public class MainCharacter implements Characters{
 
 	
 
-	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level, long experience, long health, int armor, int damage) {
+	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level, long experience, long health, int armor, int damage, String charClass) {
 		this.damage=damage;
 		this.health=health;
+		this.level=level;
 		this.experience= experience;
 		this.armor= armor;
 		this.damage=damage;
@@ -61,6 +62,26 @@ public class MainCharacter implements Characters{
 		ySpeed = 0;
 		destX = 0;
 		destY=0;
+		initializeStats(charClass);
+	}
+	
+	private void initializeStats(String charClass){
+		if(charClass.equals("barbarian")){
+			health+=health*(0.4*level);
+			damage+=damage*(0.3*level);
+			armor+= 2*level;
+			if(armor>60) { armor=60; }
+		}
+		else if(charClass.equals("hunter")){
+			health+=health*(0.3*level);
+			damage+=damage*(0.4*level);
+			armor+= 1*level;
+			if(armor>60) { armor=60; }
+		}
+		else if(charClass.equals("wizard")){
+			health+=health*(0.2*level);
+			damage+=damage*(0.6*level);
+		}
 	}
 
 	public void onDraw(Canvas canvas) {

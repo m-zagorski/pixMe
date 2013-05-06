@@ -1,9 +1,12 @@
 package com.example.pixme;
 
+import com.example.gamedata.GameSharedPreferences;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.Window;
@@ -13,6 +16,8 @@ public class SplashScreen extends Activity {
 	
 	
 	private boolean mIsBackButtonPressed;
+	GameSharedPreferences appPrefs;
+	
 	private static final int SPLASH_DURATION = 3000;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +27,14 @@ public class SplashScreen extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
        
 		Handler handler = new Handler();
+		Context context = getApplicationContext();
+	    appPrefs = new GameSharedPreferences(context);
+	    
         MediaPlayer splashMusic = MediaPlayer.create(this, R.raw.laugh);
-        splashMusic.start();
+	    if(appPrefs.getMusicStatus().equals("yes")){
+	        splashMusic.start();
+	      
+		    }
   
         handler.postDelayed(new Runnable() {
  
