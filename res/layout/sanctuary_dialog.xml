@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShopDialog" >
+
+    <TextView
+        android:id="@+id/skillName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/skillDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/skillName"
+        android:layout_marginTop="28dp"
+        android:layout_toLeftOf="@+id/skillName"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/skillNextLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/skillDescription"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/skillName"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/upgrade"
+        android:layout_alignBottom="@+id/upgrade"
+        android:layout_toRightOf="@+id/skillName"
+        android:text="CANCEL" />
+
+    <Button
+        android:id="@+id/upgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="29dp"
+        android:layout_toLeftOf="@+id/skillName"
+        android:text="UPGRADE" />
+
+</RelativeLayout>

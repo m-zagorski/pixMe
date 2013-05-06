@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sanctuary_background_final"
+    tools:context=".Sanctuary" >
+
+    <ImageButton
+        android:id="@+id/firstSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="148dp"
+        android:src="@drawable/empty_skill" />
+
+    <ImageButton
+        android:id="@+id/secondSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/empty_skill" />
+
+    <ImageButton
+        android:id="@+id/thirdSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/secondSkill"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/secondSkill"
+        android:src="@drawable/empty_skill" />
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    tools:context=".MainScreen" >
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text=" EXIT "
+        android:textColor="#99001F"
+        android:textSize="43dp" />
+
+    <Button
+        android:id="@+id/credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/exit"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text=" CREDITS "
+        android:textColor="#99001F"
+        android:textSize="43dp" />
+
+    <Button
+        android:id="@+id/new_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/credits"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text=" NEW GAME "
+        android:textColor="#99001F"
+        android:textSize="43dp" />
+
+    <Button
+        android:id="@+id/load_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/new_game"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text=" LOAD GAME "
+        android:textColor="#99001F"
+        android:textSize="43dp" />
+
+    <ImageButton
+        android:id="@+id/musicButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/music_on" />
+
+</RelativeLayout>

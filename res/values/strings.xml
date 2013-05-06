@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">pixMe</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_activity_story">Story</string>
+    <string name="title_activity_class_choose">ClassChoose</string>
+    <string name="title_activity_tawern">Tawern</string>
+    <string name="title_activity_shop">Shop</string>
+    <string name="title_activity_shop_dialog">ShopDialog</string>
+    <string name="title_activity_sanctuary">Sanctuary</string>
+
+</resources>

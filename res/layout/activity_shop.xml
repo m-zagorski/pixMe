@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shop"
+    tools:context=".Shop" >
+
+    <ImageButton
+        android:id="@+id/shop1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="49dp"
+        android:layout_marginLeft="33dp"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shop1"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/shop1"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shop2"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/shop2"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shop3"
+        android:layout_toRightOf="@+id/shop3"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shop6"
+        android:layout_toRightOf="@+id/shop4"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shop4"
+        android:layout_alignLeft="@+id/shop5"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/shop7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shop5"
+        android:layout_alignLeft="@+id/shop5"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/empty_shop" />
+
+</RelativeLayout>
