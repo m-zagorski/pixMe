@@ -18,6 +18,7 @@ public class GameSharedPreferences {
 	 //MAIN GAME STATUS
 	 private String saveExsists="false";
 	 private String musicStatus="musicstatus";
+	 private String firstLaunch="nofirstLaunch";
 	 //--
 	 //CHARACTED VARIABLES
 	 private String classN="noName";
@@ -82,6 +83,15 @@ public class GameSharedPreferences {
 		 return gamePrefs.getString(level, "-15");
 	 }
 	 
+	 public boolean ifFirstLaunch(){
+		 if(gamePrefs.getString(firstLaunch, "no").equals("no")){ return true;}
+		 else { return false; }
+	 }
+	 
+	 public void changeFirstLaunch(){
+		 prefsEditor.putString(firstLaunch, "yes").commit();	
+	 }
+	 
 	 public int getCharacterExp(){
 		 return Integer.parseInt(gamePrefs.getString(experience, "-152"));
 	 }
@@ -123,6 +133,18 @@ public class GameSharedPreferences {
 		 currentAttack+=attack;
 		 prefsEditor.putString(defenseBonus, Integer.toString(currentDefense)).commit();
 		 prefsEditor.putString(attackBonus, Integer.toString(currentAttack)).commit();
+	 }
+	 
+	 
+	 public int[] getCharacterSkills(){
+		 int skills[]= new int[5];
+		 skills[0]=Integer.parseInt(gamePrefs.getString(defenseBonus, "-500"));
+		 skills[1]=Integer.parseInt(gamePrefs.getString(attackBonus, "-500"));
+		 skills[2]=Integer.parseInt(gamePrefs.getString(firstSkillLevel, "-500"));
+		 skills[3]=Integer.parseInt(gamePrefs.getString(secondSkillLevel, "-500"));
+		 skills[4]=Integer.parseInt(gamePrefs.getString(thirdSkillLevel, "-500"));
+		 
+		 return skills;
 	 }
 	 
 	 public void updateSkill(int skillNumber){

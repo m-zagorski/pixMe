@@ -26,15 +26,24 @@ public class MainCharacter implements Characters{
 	
 	private boolean doAttack=false;
 	private boolean attack=false;
+	private boolean firstSkill=false;
+	private boolean secondSkill=false;
+	private boolean thirdSkill=false;
 	
 	
 	
 	
 	//CHARACTER VARIABLES
+	private String characterClass;
 	private int level;
 	private long health;
 	private int armor;
 	private int damage;
+	private int plusDamage;
+	private int plusArmor;
+	private int firstSkillLevel;
+	private int secondSkillLevel;
+	private int thirdSkillLevel;
 	//--
 	
 	private enum State { ONE, TWO, THREE}
@@ -42,8 +51,10 @@ public class MainCharacter implements Characters{
 
 	
 
-	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level,String charClass) {
+	public MainCharacter(OurView ourView, Bitmap bitmap, int x, int y, int level,String charClass, int[] characterSkills) {
 
+	
+		characterClass=charClass;
 		this.level=level;
 		icon= bitmap;
 		ov=ourView;
@@ -57,6 +68,13 @@ public class MainCharacter implements Characters{
 		ySpeed = 0;
 		destX = 0;
 		destY=0;
+		
+		plusArmor=characterSkills[0];
+		plusDamage=characterSkills[1];
+		firstSkillLevel=characterSkills[2];
+		secondSkillLevel=characterSkills[3];
+		thirdSkillLevel=characterSkills[4];
+		
 		initializeStats(charClass);
 	}
 	
@@ -90,7 +108,11 @@ public class MainCharacter implements Characters{
 
 	public void onDraw(Canvas canvas) {
 
-	if(doAttack){update();}
+	if((doAttack && characterClass.equals("wizard")) || (doAttack && characterClass.equals("hunter")))
+			{
+		rangedAttack();
+			}
+	else if(doAttack && characterClass.equals("barbarian")){update();}
 	else {if(health>0){direction=0;} else{ direction=2;} framing();}
 	int srcX=currentFrame * width;
 	int srcY=direction * height;	
@@ -135,11 +157,19 @@ public boolean isAttacking(){
 }
 
 public long doDamage(){
-	//Random r=new Random();
+if(firstSkill){
+return 0;
+}
+else if(secondSkill){
+return 0;	
+}
+else if(thirdSkill){
+return 0;	
+}
+else{
 	int a=new Random().nextInt(4)+1;
-	
-	
 	return (long) (damage*(a*0.4));
+}
 
 }
 
@@ -196,6 +226,18 @@ else{
 	
 x+=xSpeed;
 y+=ySpeed;
+}
+
+private void rangedAttack(){
+
+
+		direction=6;
+		framing();
+		attack=true;
+		help++;
+		if(help==40){help=0; attack=false; direction=2; doAttack=false;}
+
+
 }
 
 

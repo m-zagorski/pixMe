@@ -78,8 +78,10 @@ public class MainScreen extends Activity {
 	    gameDatabase=new GameDatabase(this);
 		gameDatabase.open();
 		
+		if(appPrefs.ifFirstLaunch()){
 		fillDatabase();
-		
+		appPrefs.changeFirstLaunch();
+		}
 		
 		gameDatabase.close();	    
 	    //--

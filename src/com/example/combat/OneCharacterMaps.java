@@ -176,10 +176,8 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		
 		
 		backgroundBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(mapName, "drawable", getPackageName()));
-		playerBitmap=BitmapFactory.decodeResource(getResources(), R.drawable.barbarian);
-		//firstMonsterBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.granade_black);
-		//secondMonsterBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.hydra);
-		//thirdMonsterBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.hydra);
+		//playerBitmap=BitmapFactory.decodeResource(getResources(), R.drawable.barbarian);
+		playerBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass(), "drawable", getPackageName()));
 		
 		firstSkill = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillfirst", "drawable", getPackageName()));
 		secondSkill = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillsecond", "drawable", getPackageName()));
@@ -221,7 +219,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			 screenWidth = deviceDisplayMetrics.widthPixels;
 			 screenHeight = deviceDisplayMetrics.heightPixels;
 
-			 player=new MainCharacter(this, playerBitmap, 100, 150, playerLevel,appPrefs.getCharacterClass());
+			 player=new MainCharacter(this, playerBitmap, 100, 150, playerLevel,appPrefs.getCharacterClass(), appPrefs.getCharacterSkills());
 			 initializeMonsters(this);
 			 
 			//firstMonster= new NormalMonster(this, firstMonsterBitmap, 600,200, 1000, 50, 25, 5, 1,"9 0 5 3 8 6", "Normal");
