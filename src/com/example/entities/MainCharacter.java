@@ -37,6 +37,7 @@ public class MainCharacter implements Characters{
 	private String characterClass;
 	private int level;
 	private long health;
+	private long totalHealth;
 	private int armor;
 	private int damage;
 	private int plusDamage;
@@ -81,28 +82,31 @@ public class MainCharacter implements Characters{
 	private void initializeStats(String charClass){
 		if(charClass.equals("barbarian")){
 			health=300;
-			damage=50;
+			damage=100;
 			armor=10;
 			health+=health*(0.4*level);
 			damage+=damage*(0.3*level);
+			totalHealth=health;
 			armor+= 2*level;
 			if(armor>60) { armor=60; }
 		}
 		else if(charClass.equals("hunter")){
 			health=250;
-			damage=60;
+			damage=110;
 			armor=5;
 			health+=health*(0.3*level);
 			damage+=damage*(0.4*level);
+			totalHealth=health;
 			armor+= 1*level;
 			if(armor>60) { armor=60; }
 		}
 		else if(charClass.equals("wizard")){
 			health=200;
-			damage=70;
+			damage=120;
 			armor=1;
 			health+=health*(0.2*level);
 			damage+=damage*(0.6*level);
+			totalHealth=health;
 		}
 	}
 
@@ -128,7 +132,11 @@ public class MainCharacter implements Characters{
 		destY=y-y%5;
 	}
 
-
+public void specialAttack(String which){
+	if(which.equals("first")){ firstSkill=true;}
+	else if(which.equals("second")) { secondSkill=true; }
+	else { thirdSkill= true; }
+}
 
 public int getX(){
 	return x;
@@ -158,7 +166,10 @@ public boolean isAttacking(){
 
 public long doDamage(){
 if(firstSkill){
-return 0;
+if(characterClass.equals("barbarian")){
+	return (long) (totalHealth* (0.25+(firstSkillLevel*0.02)));
+}
+else { return 0; }
 }
 else if(secondSkill){
 return 0;	
@@ -178,7 +189,13 @@ public long getHealth(){
 }
 
 public void getDamage(long damage){
+	if(characterClass.equals("barbarian") && firstSkill){
+	health+=health;
+	if(health>totalHealth){ health=totalHealth; }
+	}
+	else{
 	health-=damage;
+	}
 }
 
 
@@ -219,6 +236,7 @@ else{
 	else{
 		state=State.ONE;
 		doAttack=false;
+		firstSkill=false; secondSkill=false; thirdSkill=false;
 	}
 		
 	}
@@ -235,7 +253,8 @@ private void rangedAttack(){
 		framing();
 		attack=true;
 		help++;
-		if(help==40){help=0; attack=false; direction=2; doAttack=false;}
+		if(help==40){help=0; attack=false; direction=2; doAttack=false;
+		firstSkill=false; secondSkill=false; thirdSkill=false;}
 
 
 }

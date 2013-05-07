@@ -13,5 +13,6 @@ public interface Characters {
 	public long doDamage();
 	public long getHealth();
 	public void getDamage(long damage);
+	public void specialAttack(String which);
 	
 }
