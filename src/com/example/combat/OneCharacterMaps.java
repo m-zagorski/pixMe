@@ -245,8 +245,8 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		
 			
 			
-			int monstersCount=Integer.parseInt(currentMap.getMonstersCount());
-
+			//int monstersCount=Integer.parseInt(currentMap.getMonstersCount());
+			int monstersCount=4;
 
 			if(monstersCount>0){
 			com.example.gamedata.Monster monsterFirst = allMonsters.get(new Random().nextInt(allMonsters.size()));

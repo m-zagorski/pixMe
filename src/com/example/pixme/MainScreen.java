@@ -78,6 +78,66 @@ public class MainScreen extends Activity {
 	    gameDatabase=new GameDatabase(this);
 		gameDatabase.open();
 		
+		fillDatabase();
+		
+		
+		gameDatabase.close();	    
+	    //--
+	    
+	    
+	    
+	    
+	    if(appPrefs.saveExsists().equals("false")){
+	    loadgame.setTextColor(Color.GRAY);
+	    loadgame.setEnabled(false);
+	    }
+	    
+	    
+	    loadgame.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(new Intent(MainScreen.this, Tawern.class));
+            }
+        });	    
+	    newgame.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(new Intent(MainScreen.this, ClassChoose.class));
+            }
+        });
+	    credits.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(new Intent(MainScreen.this, Tawern.class));
+            }
+        });
+	    exit.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(new Intent(MainScreen.this, Shop.class));
+            }
+        });
+		musicButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	if(appPrefs.getMusicStatus().equals("yes")){
+            		musicButton.setImageResource(getResources().getIdentifier("music_off", "drawable", getPackageName()));
+            		appPrefs.updateMusic();
+            		mainMusic.pause();
+            		length=mainMusic.getCurrentPosition();
+            	}
+            	else{
+            		musicButton.setImageResource(getResources().getIdentifier("music_on", "drawable", getPackageName()));	
+            		appPrefs.updateMusic();
+            		mainMusic.seekTo(length);
+            		mainMusic.start();
+            	}
+            }
+            });
+		
+	    
+
+		
+		
+	}       
+
+	
+	private void fillDatabase(){
 		gameDatabase.insertItem(new Item("attack", "poison_sword", "15", "0", "5", "1500"));
 		gameDatabase.insertItem(new Item("defense", "golden_shield", "10", "2", "0", "1000"));
 		
@@ -180,61 +240,32 @@ public class MainScreen extends Activity {
 		gameDatabase.insertMonster(new com.example.gamedata.Monster("granade_black", "normal", "150", "50", "2", "9 0 5 3 8 6"));
 		gameDatabase.insertMonster(new com.example.gamedata.Monster("hydra", "normal", "200", "55", "5", "9 1 0 0 8 6"));
 		
-		gameDatabase.close();	    
-	    //--
-	    
-	    
-	    
-	    
-	    if(appPrefs.saveExsists().equals("false")){
-	    loadgame.setTextColor(Color.GRAY);
-	    loadgame.setEnabled(false);
-	    }
-	    
-	    
-	    loadgame.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	startActivity(new Intent(MainScreen.this, Tawern.class));
-            }
-        });	    
-	    newgame.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	startActivity(new Intent(MainScreen.this, ClassChoose.class));
-            }
-        });
-	    credits.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	startActivity(new Intent(MainScreen.this, Tawern.class));
-            }
-        });
-	    exit.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	startActivity(new Intent(MainScreen.this, Shop.class));
-            }
-        });
-		musicButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-            	if(appPrefs.getMusicStatus().equals("yes")){
-            		musicButton.setImageResource(getResources().getIdentifier("music_off", "drawable", getPackageName()));
-            		appPrefs.updateMusic();
-            		mainMusic.pause();
-            		length=mainMusic.getCurrentPosition();
-            	}
-            	else{
-            		musicButton.setImageResource(getResources().getIdentifier("music_on", "drawable", getPackageName()));	
-            		appPrefs.updateMusic();
-            		mainMusic.seekTo(length);
-            		mainMusic.start();
-            	}
-            }
-            });
 		
-	    
-
-		
-		
-	}       
-
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("armored_turtle", "boss", "500", "90", "90", "14 1 3 3 6 13"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("balloon", "normal", "200", "40", "5", "9 0 5 3 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("black_dragon", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("blood_minotaur", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("blue_dragon", "normal", "200", "40", "5", "9 0 1 1 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("bomb", "normal", "250", "60", "0", "9 0 5 3 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("cloud", "normal", "200", "40", "5", "9 0 5 3 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("dark_behemoth", "normal", "200", "40", "5", "9 1 0 0 9 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("dark_goblin", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("darkdra", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("deep_demon", "normal", "200", "40", "5", "9 1 0 0 9 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("demon", "normal", "200", "40", "5", "9 1 0 0 9 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("goblin", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("gold_dragon", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("green_dragon", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("lightdra", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("mega_death", "normal", "200", "40", "5", "10 0 3 3 6 2"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("minotaur", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("purple_dragon", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("red_dragon", "normal", "200", "40", "5", "9 1 0 0 8 9"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("redcap", "normal", "200", "40", "5", "9 1 0 0 8 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("shizel", "boss", "200", "40", "5", "10 0 4 5 7 6"));
+		gameDatabase.insertMonster(new com.example.gamedata.Monster("tigre", "normal", "200", "40", "5", "4 0 1 2 1 2"));
+	}
+	
 	@Override
 	protected void onPause(){
 		super.onPause();
