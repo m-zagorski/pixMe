@@ -49,7 +49,10 @@ public class Shop extends Activity {
 	ImageButton shopSix=null;
 	ImageButton shopSeven=null;
 	ImageButton backButton=null;
+	ImageView bs=null;
 	AlertDialog alertDialog=null;
+	TextView moneyStatus=null;
+	ImageView moneyIcon=null;
 	
 	MediaPlayer bsmithSpeech;
 	
@@ -121,7 +124,10 @@ public class Shop extends Activity {
 		shopFive = (ImageButton) findViewById(R.id.shop5);
 		shopSix = (ImageButton) findViewById(R.id.shop6);
 		shopSeven = (ImageButton) findViewById(R.id.shop7);
+		bs = (ImageView) findViewById(R.id.bsguy);
 		backButton = (ImageButton) findViewById(R.id.backButton);
+		moneyIcon = (ImageView) findViewById(R.id.moneyIcon);
+		moneyStatus = (TextView) findViewById(R.id.money);
 
 		shopOne.setImageResource(getResources().getIdentifier(shopItems.get(1).getIcon(), "drawable", getPackageName()));
 		shopTwo.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
@@ -140,8 +146,27 @@ public class Shop extends Activity {
 		shopSix.setBackgroundResource(R.drawable.empty_shop);
 		shopSeven.setBackgroundResource(R.drawable.empty_shop);
 		backButton.setBackgroundResource(R.drawable.empty_shop);
+		bs.setBackgroundResource(R.drawable.empty_shop);
 		//--
 		 
+		
+		moneyStatus.setText(appPrefs.characterMoney());
+		if(Integer.parseInt(appPrefs.characterMoney())>300000){
+			moneyIcon.setImageResource(R.drawable.max_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>250000){
+			moneyIcon.setImageResource(R.drawable.platinum_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>100000){
+			moneyIcon.setImageResource(R.drawable.gold_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>10000){
+			moneyIcon.setImageResource(R.drawable.silver_money);
+		}
+		else {
+			moneyIcon.setImageResource(R.drawable.max_money);
+		}
+
 		 
 		
 

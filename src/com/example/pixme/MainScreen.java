@@ -237,8 +237,12 @@ public class MainScreen extends Activity {
 		
 		gameDatabase.insertMap(new Map("green_land", "1", "50", "102"));
 		gameDatabase.insertMap(new Map("green_land", "2", "150", "358"));
+		gameDatabase.insertMap(new Map("green_land", "3", "450", "700"));
+		gameDatabase.insertMap(new Map("green_land", "4", "700", "1000"));
 		gameDatabase.insertMap(new Map("haunted_forest2","1", "90", "162"));
 		gameDatabase.insertMap(new Map("haunted_forest2","2", "450", "500"));
+		gameDatabase.insertMap(new Map("haunted_forest2","3", "640", "600"));
+		gameDatabase.insertMap(new Map("haunted_forest2","4", "800", "900"));
 		gameDatabase.insertMonster(new com.example.gamedata.Monster("granade_black", "normal", "150", "50", "2", "9 0 5 3 8 6"));
 		gameDatabase.insertMonster(new com.example.gamedata.Monster("hydra", "normal", "200", "55", "5", "9 1 0 0 8 6"));
 		

@@ -57,7 +57,11 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	int stun=0;
 	boolean dot=false;
 	int dotTick=0;
-	boolean dotTickShowDamage=true;
+	boolean dotTickShowDamage=false;
+	boolean thirdSpecialAttack=false;
+	
+	int monstersAlive=0;
+	boolean firstM=true, secondM=true, thirdM=true, fourthM=true;
 
 
 	int yPlayer, yMonster, yMonsterSecond, yMonsterThird, yMonsterFourth;
@@ -70,7 +74,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	Cursor monstersCursor;
 	ArrayList<Map> allMaps = new ArrayList<Map>();
 	ArrayList<com.example.gamedata.Monster> allMonsters = new ArrayList<com.example.gamedata.Monster>();
-	Paint cooldowns, cdFade;
+	Paint cooldowns, cdFade, health, damagePaint, damageDotPaint;
 	Map currentMap=null;
 	
 	Bitmap backgroundBitmap, playerBitmap, firstMonsterBitmap, secondMonsterBitmap, thirdMonsterBitmap, fourthMonsterBitmap;
@@ -190,12 +194,32 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	
 	
 	private void createPaints(){
+		Typeface dotDamageFont = Typeface.createFromAsset(getAssets(), "kree.ttf");
+		Typeface cdFont = Typeface.createFromAsset(getAssets(), "cooldown.ttf");
+		
+		
 		cooldowns = new Paint();
 		cooldowns.setStyle(Paint.Style.FILL);
 		cooldowns.setAntiAlias(true);
 		cooldowns.setTextSize(60);
-		cooldowns.setColor(Color.WHITE);
+		cooldowns.setTypeface(cdFont);
+		cooldowns.setColor(Color.rgb(242, 240, 216));
 		
+		damageDotPaint= new Paint();
+		damageDotPaint.setTypeface(dotDamageFont);
+		damageDotPaint.setStyle(Paint.Style.FILL);
+		damageDotPaint.setAntiAlias(true);
+		damageDotPaint.setTextSize(80);
+		damageDotPaint.setColor(Color.rgb(89, 49, 87));
+		
+		
+		damagePaint= new Paint();
+		damagePaint.setTypeface(dotDamageFont);
+		damagePaint.setStyle(Paint.Style.FILL);
+		damagePaint.setAntiAlias(true);
+		damagePaint.setTextSize(80);
+		//damagePaint.setColor(Color.argb(0, 166, 36, 36));
+		damagePaint.setColor(Color.rgb(166, 36, 36));
 		
 		
 		cdFade = new Paint();
@@ -251,20 +275,24 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			int monstersCount=Integer.parseInt(currentMap.getMonstersCount());
 
 			if(monstersCount>0){
+				monstersAlive++;
 			com.example.gamedata.Monster monsterFirst = allMonsters.get(new Random().nextInt(allMonsters.size()));
 			firstMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFirst.getIcon(), "drawable", getPackageName()));
 			firstMonster=new NormalMonster(this, firstMonsterBitmap, 600,200,monsterFirst.getType(), Integer.parseInt(monsterFirst.getHealth()), Integer.parseInt(monsterFirst.getArmor()), Integer.parseInt(monsterFirst.getDamage()), playerLevel,monsterFirst.getCoords());
 			}
 			if(monstersCount>1){
+				monstersAlive++;
 			com.example.gamedata.Monster monsterSecond = allMonsters.get(new Random().nextInt(allMonsters.size()));	
 			secondMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterSecond.getIcon(), "drawable", getPackageName()));
 			secondMonster=new NormalMonster(this, secondMonsterBitmap, 600,400,monsterSecond.getType(), Integer.parseInt(monsterSecond.getHealth()), Integer.parseInt(monsterSecond.getArmor()), Integer.parseInt(monsterSecond.getDamage()), playerLevel,monsterSecond.getCoords());
 			}
 			if(monstersCount>2){
+				monstersAlive++;
 			com.example.gamedata.Monster monsterThird = allMonsters.get(new Random().nextInt(allMonsters.size()));
 			thirdMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterThird.getIcon(), "drawable", getPackageName())); 
 			thirdMonster=new NormalMonster(this, thirdMonsterBitmap, 500,300,monsterThird.getType(), Integer.parseInt(monsterThird.getHealth()), Integer.parseInt(monsterThird.getArmor()), Integer.parseInt(monsterThird.getDamage()), playerLevel,monsterThird.getCoords());}
 			if(monstersCount>3) {
+				monstersAlive++;
 			com.example.gamedata.Monster monsterFour = allMonsters.get(new Random().nextInt(allMonsters.size()));
 			fourthMonsterBitmap= BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(monsterFour.getIcon(), "drawable", getPackageName()));	
 			fourthMonster=new NormalMonster(this, fourthMonsterBitmap, 500,400,monsterFour.getType(), Integer.parseInt(monsterFour.getHealth()), Integer.parseInt(monsterFour.getArmor()), Integer.parseInt(monsterFour.getDamage()), playerLevel,monsterFour.getCoords()); 
@@ -316,7 +344,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			//DRAW COOLDOWNS
 			if(secondSkillCd>0){ 
 				canvas.drawText(""+secondSkillCd, 27, screenHeight/2, cooldowns); 
-				canvas.drawRect(0, screenHeight/2-54, 80, screenHeight/2+40, cdFade);
+				canvas.drawRect(0, screenHeight/2-84, 80, screenHeight/2+40, cdFade);
 			}
 			if(firstSkillCd>0){ 
 				canvas.drawText(""+firstSkillCd, 27, screenHeight/2-90, cooldowns); 
@@ -326,9 +354,13 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 				canvas.drawText(""+thirdSkillCd, 27, screenHeight/2+110, cooldowns); 
 				canvas.drawRect(0, screenHeight/2+70, 80, screenHeight/2+40, cdFade);
 			}
+			if(thirdSpecialAttack){
+				canvas.drawRect(0, screenHeight/2-152, 80, screenHeight/2-40, cdFade);
+				canvas.drawRect(0, screenHeight/2-84, 80, screenHeight/2+40, cdFade);
+			}
 			//--
 			//--
-			
+			checkAliveMonsters();
 			checkGameStatus();
 			
 
@@ -341,22 +373,29 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 			if(stun>0){
 				if(dot){
-				dotDamage=player.doDamage();
-				firstMonster.getDamage(dotDamage);
+				dotDamage=player.doDotDamage();
+				if(firstMonster.getHealth()>0) {firstMonster.getDamage(dotDamage); }
+				
+				if(checkIfMonsterExists(2)){if(secondMonster.getHealth()>0){ secondMonster.getDamage(dotDamage);}}
+				if(checkIfMonsterExists(3)){if(thirdMonster.getHealth()>0){ thirdMonster.getDamage(dotDamage); }}
+				if(checkIfMonsterExists(4)){if(fourthMonster.getHealth()>0){ fourthMonster.getDamage(dotDamage); }}
+				
 				dot=false;
-				}
 				
-				if(dotTickShowDamage){
-					dotTickDamage();
-					canvas.drawText("-"+dotDamage, firstMonster.getX()+32, yMonster--, cooldowns);
 				}
-				
-			
 			}
 			else {
 				player.secondSkillDone();
 			}
-			
+			if(dotTickShowDamage){
+				dotTickDamage();
+				if(firstMonster.getHealth()>0) {canvas.drawText("-"+dotDamage, firstMonster.getX()+60, firstMonster.getY()+30, damageDotPaint); }
+				
+				if(checkIfMonsterExists(2)){if(secondMonster.getHealth()>0){ canvas.drawText("-"+dotDamage, secondMonster.getX()+60, secondMonster.getY()+50, damageDotPaint);}}
+				if(checkIfMonsterExists(3)){if(thirdMonster.getHealth()>0){ canvas.drawText("-"+dotDamage, thirdMonster.getX()+60, thirdMonster.getY()+50, damageDotPaint);}}
+				if(checkIfMonsterExists(4)){if(fourthMonster.getHealth()>0){ canvas.drawText("-"+dotDamage, fourthMonster.getX()+60, fourthMonster.getY()+50, damageDotPaint); }}
+				
+			}
 			
 			
 			if(state==State.PLAYERR && (playerFirstSkill || playerSecondSkill || playerThirdSkill)){
@@ -367,7 +406,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 					if(playerAttack){yPlayer=player.getY(); damage=player.doDamage(); 
 					player.getDamage(damage);
 					playerAttack=false;}
-					canvas.drawText("+"+damage, player.getX()+32, yPlayer--, healthNumbers);
+					canvas.drawText("+"+damage, player.getX()+32, yPlayer--, damagePaint);
 				}
 				else { 
 					if(!playerAttack && !player.done()){ state=State.MONSTER; whichMonster=Monster.ONE; monsterAttack=true; firstMonster.setMonsterTurn(true); firstMonster.setPlayerDest(player.getX(), player.getY());
@@ -397,15 +436,15 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 						playerAttack=false;}
 						
 						if(firstMonster.getHealth()>0) {
-						canvas.drawText("-"+damage, firstMonster.getX()+32, yMonster--, healthNumbers); }
+						canvas.drawText("-"+damage, firstMonster.getX()+32, yMonster--, damagePaint); }
 						if(checkIfMonsterExists(2)){ 
-							if(secondMonster.getHealth()>0) {canvas.drawText("-"+damage, secondMonster.getX()+32, yMonsterSecond--, healthNumbers);}
+							if(secondMonster.getHealth()>0) {canvas.drawText("-"+damage, secondMonster.getX()+32, yMonsterSecond--, damagePaint);}
 						}
 						if(checkIfMonsterExists(3)){ 
-							if(thirdMonster.getHealth()>0) {canvas.drawText("-"+damage, thirdMonster.getX()+32, yMonsterThird--, healthNumbers); }
+							if(thirdMonster.getHealth()>0) {canvas.drawText("-"+damage, thirdMonster.getX()+32, yMonsterThird--, damagePaint); }
 						}
 						if(checkIfMonsterExists(4)){ 
-							if(fourthMonster.getHealth()>0) {canvas.drawText("-"+damage, fourthMonster.getX()+32, yMonsterFourth--, healthNumbers); }
+							if(fourthMonster.getHealth()>0) {canvas.drawText("-"+damage, fourthMonster.getX()+32, yMonsterFourth--, damagePaint); }
 						}
 						
 					
@@ -429,7 +468,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 				if(playerAttack){ damage=player.doDamage(); 
 				attackedMonster.getDamage(damage);
 				playerAttack=false;}
-				canvas.drawText("-"+damage, attackedMonster.getX()+32, yMonster--, healthNumbers);
+				canvas.drawText("-"+damage, attackedMonster.getX()+32, yMonster--, damagePaint);
 			}
 			else { 
 				if(!playerAttack && !player.done()){ 
@@ -453,7 +492,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 				if(firstMonster.isAttacking()){
 				if(monsterAttack){yPlayer=player.getY(); damage=firstMonster.doDamage(); player.getDamage(damage); monsterAttack=false;}
-				canvas.drawText("-"+damage, player.getX()+32, yPlayer--, healthNumbers);
+				canvas.drawText("-"+damage, player.getX()+32, yPlayer--, damagePaint);
 				}
 				else {
 					if(!firstMonster.getMonsterTurn() && (!monsterAttack || !firstMonster.isMonsterAlive())){whichMonster=Monster.TWO; playerAttack=true; monsterAttack=true;   
@@ -467,7 +506,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 					
 					if(secondMonster.isAttacking()){
 						if(monsterAttack){yPlayer=player.getY(); damage=secondMonster.doDamage(); player.getDamage(damage); monsterAttack=false;}
-						canvas.drawText("-"+damage, player.getX()+32, yPlayer--, healthNumbers);
+						canvas.drawText("-"+damage, player.getX()+32, yPlayer--, damagePaint);
 						}
 						else {
 							if(!secondMonster.getMonsterTurn() && (!monsterAttack || !secondMonster.isMonsterAlive())){whichMonster=Monster.THREE; monsterAttack=true;    
@@ -485,7 +524,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 					
 						if(thirdMonster.isAttacking()){
 							if(monsterAttack){yPlayer=player.getY(); damage=thirdMonster.doDamage(); player.getDamage(damage); monsterAttack=false;}
-							canvas.drawText("-"+damage, player.getX()+32, yPlayer--, healthNumbers);
+							canvas.drawText("-"+damage, player.getX()+32, yPlayer--, damagePaint);
 							}
 							else {
 								if(!thirdMonster.getMonsterTurn() && (!monsterAttack || !thirdMonster.isMonsterAlive())){whichMonster=Monster.FOUR; monsterAttack=true;    
@@ -501,7 +540,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 					 	
 						if(fourthMonster.isAttacking()){
 							if(monsterAttack){yPlayer=player.getY(); damage=fourthMonster.doDamage(); player.getDamage(damage); monsterAttack=false;}
-							canvas.drawText("-"+damage, player.getX()+32, yPlayer--, healthNumbers);
+							canvas.drawText("-"+damage, player.getX()+32, yPlayer--, damagePaint);
 							}
 							else {
 								if(!fourthMonster.getMonsterTurn() && (!monsterAttack || !fourthMonster.isMonsterAlive())){whichMonster=Monster.ONE; state=state.PLAYERR; monsterAttack=true;    
@@ -536,9 +575,17 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		t.start();
 		}
 		
+		private void checkAliveMonsters(){
+			if(firstMonster.getHealth()==0 && firstM) { monstersAlive--; firstM=false;}
+			if(checkIfMonsterExists(2)){ if(secondMonster.getHealth()==0 && secondM) { monstersAlive--; secondM=false;} }
+			if(checkIfMonsterExists(3)){ if(thirdMonster.getHealth()==0 && thirdM) { monstersAlive--; thirdM=false;} }
+			if(checkIfMonsterExists(4)){ if(fourthMonster.getHealth()==0 && fourthM) { monstersAlive--; fourthM=false;} }
+		}
 		private void checkGameStatus(){
-			if(firstMonster.getHealth()<0){ 
-				startActivity(new Intent(context, Shop.class));
+			if(monstersAlive==0){ 
+				startActivity(new Intent(context, Shop.class));	
+			}
+			else if(player.getHealth() <= 0){
 				
 			}
 		}
@@ -547,14 +594,15 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	}
 
 	private void dotTickDamage(){
-		if(dotTick==5){ dotTick=0; dotTickShowDamage=false; }
+		dotTick++;
+		if(dotTick==50){ dotTick=0; dotTickShowDamage=false; }
 	}
 	
 	private void manageSkills(){
 		if(firstSkillCd>0) { --firstSkillCd;} 
 		if(secondSkillCd>0){ --secondSkillCd; }
 		if(thirdSkillCd>0){ --thirdSkillCd; }
-		if(stun>0) { --stun; dot=true; dotTickShowDamage=true;}
+		if(stun>0) { --stun; if(appPrefs.getCharacterClass().equals("barbarian") || appPrefs.getCharacterClass().equals("wizard")){dot=true; dotTickShowDamage=true;}}
 	}
 	
 	private boolean checkIfMonsterExists(int monsterID){
@@ -591,7 +639,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		//MONSTERONE
 		if((me.getX()>=0 && me.getX()<=108) && (me.getY()>=(screenHeight/2)-152 && me.getY()<=(screenHeight/2)-48)){
 			
-			if(firstSkillCd==0){
+			if(firstSkillCd==0 && !thirdSpecialAttack){
 			player.setMonsterDest(player.getX(), player.getY());
 			player.setAttack(true);
 			attackedMonster=firstMonster;
@@ -609,15 +657,26 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		}
 		
 		if((me.getX()>=0 && me.getX()<=108) && (me.getY()>=(screenHeight/2)-48 && me.getY()<=(screenHeight/2)+48)){
-			if(secondSkillCd==0){
-				if(appPrefs.getCharacterClass().equals("barbarian")) { stun=3; }
-				dot=true;
+			if(secondSkillCd==0 && !thirdSpecialAttack){
+				if(appPrefs.getCharacterClass().equals("barbarian")) { stun=3; dot=true; 	dotTickShowDamage=true;}
+				if(appPrefs.getCharacterClass().equals("wizard")) { stun=2; dot=true; 	dotTickShowDamage=true;}
+				if( appPrefs.getCharacterClass().equals("hunter")) { stun=3; }
+				player.startAnimateSkill();
 				player.specialAttack("second");
 				secondSkillCd=5;
-				yMonster=firstMonster.getY();
+	
 			}
 			
 			
+		}
+		
+		
+		if((me.getX()>=0 && me.getX()<=108) && (me.getY()>=(screenHeight/2)+48 && me.getY()<=(screenHeight/2)+156)){
+			if(thirdSkillCd==0){
+			player.specialAttack("third");
+			thirdSkillCd=8;
+			thirdSpecialAttack=true;
+		}
 		}
 		
 			
@@ -630,6 +689,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		player.setAttack(true);
 		attackedMonster=firstMonster;
 		yMonster=attackedMonster.getY();
+		if(thirdSpecialAttack) { thirdSpecialAttack=false; }
 		manageSkills();
 			}
 		}		
@@ -643,6 +703,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			player.setAttack(true);
 			attackedMonster=secondMonster;
 			yMonster=attackedMonster.getY();
+			if(thirdSpecialAttack) { thirdSpecialAttack=false; }
 			manageSkills();
 			}	
 			}
@@ -656,6 +717,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			player.setAttack(true);
 			attackedMonster=thirdMonster;
 			yMonster=attackedMonster.getY();
+			if(thirdSpecialAttack) { thirdSpecialAttack=false; }
 			manageSkills();
 			}		
 			}
@@ -669,6 +731,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			player.setAttack(true);
 			attackedMonster=fourthMonster;
 			yMonster=attackedMonster.getY();
+			if(thirdSpecialAttack) { thirdSpecialAttack=false; }
 			manageSkills();
 			}	
 			}

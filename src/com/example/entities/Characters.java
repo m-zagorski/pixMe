@@ -15,5 +15,7 @@ public interface Characters {
 	public void getDamage(long damage);
 	public void specialAttack(String which);
 	public void secondSkillDone();
+	public void startAnimateSkill();
+	public long doDotDamage();
 	
 }

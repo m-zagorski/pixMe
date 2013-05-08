@@ -21,6 +21,7 @@ public class MainCharacter implements Characters{
 	private int destX, destY;
 	private State state=State.ONE;
 	private int help=0;
+	private int animatehelp=0;
 	
 	private int frameSpeed=0;
 	
@@ -29,6 +30,8 @@ public class MainCharacter implements Characters{
 	private boolean firstSkill=false;
 	private boolean secondSkill=false;
 	private boolean thirdSkill=false;
+	private boolean animateSkill=false;
+	private boolean playerDead=false;
 	
 	
 	
@@ -111,8 +114,8 @@ public class MainCharacter implements Characters{
 	}
 
 	public void onDraw(Canvas canvas) {
-
-	if((doAttack && characterClass.equals("wizard")) || (doAttack && characterClass.equals("hunter")))
+		if(animateSkill){ animate(); }
+		else if((doAttack && characterClass.equals("wizard")) || (doAttack && characterClass.equals("hunter")))
 			{
 		rangedAttack();
 			}
@@ -132,6 +135,9 @@ public class MainCharacter implements Characters{
 		destY=y-y%5;
 	}
 
+	
+
+	
 public void specialAttack(String which){
 	if(which.equals("first")){ firstSkill=true;}
 	else if(which.equals("second")) { secondSkill=true; }
@@ -153,7 +159,9 @@ public boolean done(){
 	return doAttack;
 }
 
-	
+public void startAnimateSkill(){
+	animateSkill=true;
+}
 
 private void framing(){
 	frameSpeed++;
@@ -162,6 +170,18 @@ private void framing(){
 
 public boolean isAttacking(){
 	return attack;
+}
+
+public long doDotDamage(){
+	if(characterClass.equals("barbarian")){
+		return (long) (damage*(0.15+(secondSkillLevel*0.02)));
+		}
+	else if(characterClass.equals("wizard")){
+		return (long) (damage*(0.3+(secondSkillLevel*0.03)));
+	}
+	else {
+		return 0;
+	}
 }
 
 public long doDamage(){
@@ -177,17 +197,24 @@ return (long) (damage*(0.4+(firstSkillLevel*0.04)));
 }
 }
 else if(secondSkill){
-if(characterClass.equals("barbarian")){
-return (long) (damage*(0.15+(secondSkillLevel*0.02)));
-}
-else {
+
 	return 0;
-}
+
 	
 	
 }
 else if(thirdSkill){
-return 0;	
+	if(characterClass.equals("barbarian")){ 
+	return (long) (damage*(1.22+(thirdSkillLevel*0.3)));	
+	}
+	if(characterClass.equals("wizard")){
+		return (long) (damage*(1.55+(thirdSkillLevel*0.4)));		
+	}
+	else{
+		return (long) (damage*(1.33+(thirdSkillLevel*0.35)));		
+	}
+	
+	
 }
 else{
 	int a=new Random().nextInt(4)+1;
@@ -207,9 +234,18 @@ public void getDamage(long damage){
 	}
 	else{
 	health-=damage;
+	if(health<=0){ health=0; playerDead=true;}
 	}
 }
-
+private void animate(){
+	if(characterClass.equals("barbarian")) { direction=1;} 
+	else if(characterClass.equals("wizard")) { direction=7;}
+	else { direction=8;}
+	framing();
+	animatehelp++;
+	if(animatehelp==40){animatehelp=0; animateSkill=false; secondSkill=false;}
+	
+}
 
 private void update(){
 	if(state==State.ONE){
@@ -226,11 +262,15 @@ else{
 	state=State.TWO;
 }}
 	else if(state==State.TWO){
-		direction=6;
+	
+	if(characterClass.equals("barbarian") && thirdSkill) { direction=6;} 
+	else if(characterClass.equals("wizard") && thirdSkill) {direction=9; }
+	else if(characterClass.equals("hunter") && thirdSkill){ direction=8;}
+	else{	direction=6; } 
 		framing();
 		attack=true;
 		help++;
-		if(help==40){state=State.THREE; help=0; attack=false;}
+		if(help==40){state=State.THREE; help=0; attack=false; thirdSkill=false;}
 	}
 	else{
 		direction=5;
@@ -265,7 +305,9 @@ public void secondSkillDone(){
 private void rangedAttack(){
 
 
-		direction=6;
+	if(characterClass.equals("wizard") && thirdSkill) {direction=8; }
+	else if(characterClass.equals("hunter") && thirdSkill){ direction=7;}
+	else{	direction=6; } 
 		framing();
 		attack=true;
 		help++;
