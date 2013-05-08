@@ -155,7 +155,20 @@ public class GameSharedPreferences {
 	else if(skillNumber==1){secondSkillLv++; prefsEditor.putString(secondSkillLevel, Integer.toString(secondSkillLv)).commit();}
 	else {thirdSkillLv++;  prefsEditor.putString(thirdSkillLevel, Integer.toString(thirdSkillLv)).commit();}
 	 }
-	 
+	 public void decreaseSkill(int skillNumber){
+			int firtSkillLv = Integer.parseInt(gamePrefs.getString(firstSkillLevel, "-500"));
+			int secondSkillLv = Integer.parseInt(gamePrefs.getString(secondSkillLevel, "-500"));
+			int thirdSkillLv = Integer.parseInt(gamePrefs.getString(thirdSkillLevel, "50012"));
+			if(skillNumber==0){
+				if(firtSkillLv>1){
+				firtSkillLv--;  prefsEditor.putString(firstSkillLevel, Integer.toString(firtSkillLv)).commit();}}
+			else if(skillNumber==1){
+				if(secondSkillLv>1){
+				secondSkillLv--; prefsEditor.putString(secondSkillLevel, Integer.toString(secondSkillLv)).commit();}}
+			else {
+				if(thirdSkillLv>1){
+				thirdSkillLv--;  prefsEditor.putString(thirdSkillLevel, Integer.toString(thirdSkillLv)).commit();}}
+			 }
 	 
 	
 	
