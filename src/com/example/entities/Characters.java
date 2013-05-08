@@ -14,5 +14,6 @@ public interface Characters {
 	public long getHealth();
 	public void getDamage(long damage);
 	public void specialAttack(String which);
+	public void secondSkillDone();
 	
 }

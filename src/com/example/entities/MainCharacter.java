@@ -169,10 +169,22 @@ if(firstSkill){
 if(characterClass.equals("barbarian")){
 	return (long) (totalHealth* (0.25+(firstSkillLevel*0.02)));
 }
-else { return 0; }
+if(characterClass.equals("wizard")){
+return (long) (damage*(0.5+(firstSkillLevel*0.05)));	
+}
+else { 
+return (long) (damage*(0.4+(firstSkillLevel*0.04)));
+}
 }
 else if(secondSkill){
-return 0;	
+if(characterClass.equals("barbarian")){
+return (long) (damage*(0.15+(secondSkillLevel*0.02)));
+}
+else {
+	return 0;
+}
+	
+	
 }
 else if(thirdSkill){
 return 0;	
@@ -236,7 +248,7 @@ else{
 	else{
 		state=State.ONE;
 		doAttack=false;
-		firstSkill=false; secondSkill=false; thirdSkill=false;
+		firstSkill=false;  thirdSkill=false;
 	}
 		
 	}
@@ -244,6 +256,10 @@ else{
 	
 x+=xSpeed;
 y+=ySpeed;
+}
+
+public void secondSkillDone(){
+	secondSkill=false;
 }
 
 private void rangedAttack(){
@@ -254,7 +270,7 @@ private void rangedAttack(){
 		attack=true;
 		help++;
 		if(help==40){help=0; attack=false; direction=2; doAttack=false;
-		firstSkill=false; secondSkill=false; thirdSkill=false;}
+		firstSkill=false;  thirdSkill=false;}
 
 
 }
