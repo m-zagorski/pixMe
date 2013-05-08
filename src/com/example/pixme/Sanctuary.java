@@ -147,7 +147,6 @@ public class Sanctuary extends Activity {
 								Toast.LENGTH_LONG).show();
 					}
 					else {
-						appPrefs.decreaseSkill(skillID); 
 						Toast.makeText(Sanctuary.this, 
 								"Upgrade failed.", 
 								Toast.LENGTH_LONG).show();	
