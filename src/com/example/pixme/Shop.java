@@ -39,6 +39,7 @@ public class Shop extends Activity {
 	GameSharedPreferences appPrefs;
 	ArrayList<Item> allItems = new ArrayList<Item>();
 	ArrayList<Item> shopItems= new ArrayList<Item>();
+
 	
 	final Context context=this;
 	ImageButton shopOne=null;
@@ -48,6 +49,9 @@ public class Shop extends Activity {
 	ImageButton shopFive=null;
 	ImageButton shopSix=null;
 	ImageButton shopSeven=null;
+	
+
+	
 	ImageButton backButton=null;
 	ImageView bs=null;
 	AlertDialog alertDialog=null;
@@ -75,6 +79,7 @@ public class Shop extends Activity {
 			}
 		}
 	}
+	
 	
 	private String createDescription(Item item){
 		String description="";
@@ -124,19 +129,22 @@ public class Shop extends Activity {
 		shopFive = (ImageButton) findViewById(R.id.shop5);
 		shopSix = (ImageButton) findViewById(R.id.shop6);
 		shopSeven = (ImageButton) findViewById(R.id.shop7);
+		
+		
+		
 		bs = (ImageView) findViewById(R.id.bsguy);
 		backButton = (ImageButton) findViewById(R.id.backButton);
 		moneyIcon = (ImageView) findViewById(R.id.moneyIcon);
 		moneyStatus = (TextView) findViewById(R.id.money);
 
 		shopOne.setImageResource(getResources().getIdentifier(shopItems.get(1).getIcon(), "drawable", getPackageName()));
-		shopTwo.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-		shopThree.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-		shopFour.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-		shopFive.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-		shopSix.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-		shopSeven.setImageResource(getResources().getIdentifier(randomItem(), "drawable", getPackageName()));
-
+		shopTwo.setImageResource(getResources().getIdentifier(shopItems.get(2).getIcon(), "drawable", getPackageName()));
+		shopThree.setImageResource(getResources().getIdentifier(shopItems.get(3).getIcon(), "drawable", getPackageName()));
+		shopFour.setImageResource(getResources().getIdentifier(shopItems.get(4).getIcon(), "drawable", getPackageName()));
+		shopFive.setImageResource(getResources().getIdentifier(shopItems.get(5).getIcon(), "drawable", getPackageName()));
+		shopSix.setImageResource(getResources().getIdentifier(shopItems.get(6).getIcon(), "drawable", getPackageName()));
+		shopSeven.setImageResource(getResources().getIdentifier(shopItems.get(7).getIcon(), "drawable", getPackageName()));
+		
 		//Transparent Backgrounds
 		shopOne.setBackgroundResource(R.drawable.empty_shop);
 		shopTwo.setBackgroundResource(R.drawable.empty_shop);
@@ -145,6 +153,7 @@ public class Shop extends Activity {
 		shopFive.setBackgroundResource(R.drawable.empty_shop);
 		shopSix.setBackgroundResource(R.drawable.empty_shop);
 		shopSeven.setBackgroundResource(R.drawable.empty_shop);
+	
 		backButton.setBackgroundResource(R.drawable.empty_shop);
 		bs.setBackgroundResource(R.drawable.empty_shop);
 		//--
@@ -178,6 +187,36 @@ public class Shop extends Activity {
     	shopOne.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(1));
+            }
+            });
+    	shopTwo.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(2));
+            }
+            });
+    	shopThree.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(3));
+            }
+            });
+    	shopFour.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(4));
+            }
+            });
+    	shopFive.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(5));
+            }
+            });
+    	shopSix.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(6));
+            }
+            });
+    	shopSeven.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		createDialog(shopItems.get(7));
             }
             });
 		
