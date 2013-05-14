@@ -36,6 +36,7 @@ import com.example.gamedata.GameDatabase;
 import com.example.gamedata.GameSharedPreferences;
 import com.example.gamedata.Map;
 import com.example.pixme.Shop;
+import com.example.pixme.Tawern;
 
 public class OneCharacterMaps extends Activity implements OnTouchListener{
 	OurView v;
@@ -79,6 +80,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	
 	Bitmap backgroundBitmap, playerBitmap, firstMonsterBitmap, secondMonsterBitmap, thirdMonsterBitmap, fourthMonsterBitmap;
 	Bitmap firstSkill, secondSkill, thirdSkill;
+	Bitmap firstSkillBitmapCd, secondSkillBitmapCd, thirdSkillBitmapCd;
 	int firstSkillCd=0, secondSkillCd=0, thirdSkillCd=0;
 	Characters player=null;
 	Monsters firstMonster=null, secondMonster=null, thirdMonster=null, fourthMonster=null;
@@ -187,7 +189,9 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		secondSkill = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillsecond", "drawable", getPackageName()));
 		thirdSkill = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillthird", "drawable", getPackageName()));
 		
-		 
+		firstSkillBitmapCd=BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillfirstcd", "drawable", getPackageName()));
+		secondSkillBitmapCd=BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillsecondcd", "drawable", getPackageName()));
+		thirdSkillBitmapCd=BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(appPrefs.getCharacterClass()+"skillthirdcd", "drawable", getPackageName()));
 	}
 	
 
@@ -317,9 +321,31 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			canvas.drawBitmap(thirdSkill, (screenWidth/2)+44, screenHeight-90, null);
 			 */
 			
+			if(firstSkillCd==0){
 			canvas.drawBitmap(firstSkill, 0, (screenHeight/2)-152, null);
+			}
+			else {
+				canvas.drawBitmap(firstSkillBitmapCd, 0, (screenHeight/2)-152, null);	
+				canvas.drawText(""+firstSkillCd, 27, screenHeight/2-90, cooldowns); 
+			}
+			if(secondSkillCd==0){
 			canvas.drawBitmap(secondSkill, 0, (screenHeight/2)-54, null);
+			}
+			else{
+				canvas.drawBitmap(secondSkillBitmapCd, 0, (screenHeight/2)-54, null);
+				canvas.drawText(""+secondSkillCd, 27, screenHeight/2, cooldowns);
+			}
+			if(thirdSkillCd==0){
 			canvas.drawBitmap(thirdSkill, 0, (screenHeight/2)+44, null);
+			}
+			else{
+				canvas.drawBitmap(thirdSkillBitmapCd, 0, (screenHeight/2)+44, null);	
+				canvas.drawText(""+thirdSkillCd, 27, screenHeight/2+110, cooldowns); 
+			}
+			if(thirdSpecialAttack){
+				canvas.drawBitmap(firstSkillBitmapCd, 0, (screenHeight/2)-152, null);	
+				canvas.drawBitmap(secondSkillBitmapCd, 0, (screenHeight/2)-54, null);
+			}
 			//--
 			 
 			
@@ -342,6 +368,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			if(checkIfMonsterExists(4)){ canvas.drawText(""+fourthMonster.getHealth(), fourthMonster.getX()+30, fourthMonster.getY(), healthNumbers); }
 			canvas.drawText(""+playerFirstSkill, 300, 300, cooldowns);
 			//DRAW COOLDOWNS
+			/*
 			if(secondSkillCd>0){ 
 				canvas.drawText(""+secondSkillCd, 27, screenHeight/2, cooldowns); 
 				canvas.drawRect(0, screenHeight/2-84, 80, screenHeight/2+40, cdFade);
@@ -358,6 +385,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 				canvas.drawRect(0, screenHeight/2-152, 80, screenHeight/2-40, cdFade);
 				canvas.drawRect(0, screenHeight/2-84, 80, screenHeight/2+40, cdFade);
 			}
+			*/
 			//--
 			//--
 			checkAliveMonsters();
@@ -583,9 +611,17 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		}
 		private void checkGameStatus(){
 			if(monstersAlive==0){ 
-				startActivity(new Intent(context, Shop.class));	
+				int mapGold=Integer.parseInt(currentMap.getBasegold());
+				int mapExp=Integer.parseInt(currentMap.getBaseexperience());
+				mapGold+=mapGold*(0.6*playerLevel);
+				mapExp+=mapExp*(0.5*playerLevel);
+				appPrefs.setWinLose("win", mapGold, mapExp);
+				startActivity(new Intent(context, Tawern.class));	
+				
 			}
 			else if(player.getHealth() <= 0){
+				appPrefs.setWinLose("lose", 0, 0);
+				startActivity(new Intent(context, Tawern.class));	
 				
 			}
 		}

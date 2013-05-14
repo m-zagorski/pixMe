@@ -11,16 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="98dp"
+         android:textSize="15dp"
         android:text="TextView" />
-
-    <Button
-        android:id="@+id/buttonBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/description"
-        android:layout_marginTop="37dp"
-        android:layout_toLeftOf="@+id/description"
-        android:text="BUY" />
 
     <Button
         android:id="@+id/buttonCancel"
@@ -29,6 +21,8 @@
         android:layout_alignBaseline="@+id/buttonBuy"
         android:layout_alignBottom="@+id/buttonBuy"
         android:layout_toRightOf="@+id/description"
+        android:textColor="#99001F"
+         android:textSize="20dp"
         android:text="CANCEL" />
 
     <TextView
@@ -46,6 +40,19 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
+         android:textSize="18dp"
         android:src="@drawable/poison_sword" />
+
+    <Button
+        android:id="@+id/buttonBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="38dp"
+        android:layout_toLeftOf="@+id/description"
+        android:text="BUY"
+        android:textColor="#99001F"
+        android:textSize="20dp" />
 
 </RelativeLayout>

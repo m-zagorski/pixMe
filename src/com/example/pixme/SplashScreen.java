@@ -11,12 +11,15 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class SplashScreen extends Activity {
 	
 	
 	private boolean mIsBackButtonPressed;
 	GameSharedPreferences appPrefs;
+	TextView loading=null;
 	
 	private static final int SPLASH_DURATION = 3000;
 	@Override
@@ -29,6 +32,10 @@ public class SplashScreen extends Activity {
 		Handler handler = new Handler();
 		Context context = getApplicationContext();
 	    appPrefs = new GameSharedPreferences(context);
+	    
+	    loading = (TextView) findViewById(R.id.textView1);
+	    
+	
 	    
         MediaPlayer splashMusic = MediaPlayer.create(this, R.raw.laugh);
 	    if(appPrefs.getMusicStatus().equals("yes")){

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sanctuary_background_final"
+    android:background="@drawable/tortured_background"
     tools:context=".Sanctuary" >
 
     <ImageButton
@@ -10,25 +10,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="148dp"
-        android:src="@drawable/empty_skill" />
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="42dp"
+        android:src="@drawable/chamber_closed" />
 
     <ImageButton
         android:id="@+id/secondSkill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/empty_skill" />
+        android:src="@drawable/chamber_closed" />
 
     <ImageButton
         android:id="@+id/thirdSkill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/secondSkill"
-        android:layout_marginLeft="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="29dp"
         android:layout_toRightOf="@+id/secondSkill"
-        android:src="@drawable/empty_skill" />
+        android:src="@drawable/chamber_closed" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/empty_shop" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/secondSkill"
+        android:src="@drawable/chamber_guardian" />
 
 </RelativeLayout>

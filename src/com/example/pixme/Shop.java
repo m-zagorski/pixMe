@@ -1,37 +1,31 @@
 package com.example.pixme;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-
-import com.example.gamedata.GameDatabase;
-import com.example.gamedata.GameSharedPreferences;
-import com.example.gamedata.Item;
-import com.example.gamedata.Map;
-
-
-import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.gamedata.GameDatabase;
+import com.example.gamedata.GameSharedPreferences;
+import com.example.gamedata.Item;
 
 public class Shop extends Activity {
 	GameDatabase items=null;
@@ -39,7 +33,7 @@ public class Shop extends Activity {
 	GameSharedPreferences appPrefs;
 	ArrayList<Item> allItems = new ArrayList<Item>();
 	ArrayList<Item> shopItems= new ArrayList<Item>();
-
+	Typeface font;  
 	
 	final Context context=this;
 	ImageButton shopOne=null;
@@ -115,6 +109,7 @@ public class Shop extends Activity {
 		//playerMoney= Integer.parseInt(appPrefs.characterMoney());
 		fillItemsList();
 		fillShop();
+		font = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
 		
 		bsmithSpeech = MediaPlayer.create(this, (getResources().getIdentifier("bsmith0"+new Random().nextInt(9), "raw", getPackageName())));
 	    if(appPrefs.getMusicStatus().equals("yes")){
@@ -159,22 +154,7 @@ public class Shop extends Activity {
 		//--
 		 
 		
-		moneyStatus.setText(appPrefs.characterMoney());
-		if(Integer.parseInt(appPrefs.characterMoney())>300000){
-			moneyIcon.setImageResource(R.drawable.max_money);
-		}
-		else if(Integer.parseInt(appPrefs.characterMoney())>250000){
-			moneyIcon.setImageResource(R.drawable.platinum_money);
-		}
-		else if(Integer.parseInt(appPrefs.characterMoney())>100000){
-			moneyIcon.setImageResource(R.drawable.gold_money);
-		}
-		else if(Integer.parseInt(appPrefs.characterMoney())>10000){
-			moneyIcon.setImageResource(R.drawable.silver_money);
-		}
-		else {
-			moneyIcon.setImageResource(R.drawable.max_money);
-		}
+	updateMoneyStatus();
 
 		 
 		
@@ -187,36 +167,43 @@ public class Shop extends Activity {
     	shopOne.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(1));
+            	
             }
             });
     	shopTwo.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(2));
+            	
             }
             });
     	shopThree.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(3));
+            	
             }
             });
     	shopFour.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(4));
+            		
             }
             });
     	shopFive.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(5));
+            		
             }
             });
     	shopSix.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(6));
+            	
             }
             });
     	shopSeven.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		createDialog(shopItems.get(7));
+            		
             }
             });
 		
@@ -233,6 +220,25 @@ public class Shop extends Activity {
 		
 		
 		items.close();
+	}
+	
+	private void updateMoneyStatus(){
+		moneyStatus.setText(appPrefs.characterMoney());
+		if(Integer.parseInt(appPrefs.characterMoney())>300000){
+			moneyIcon.setImageResource(R.drawable.max_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>250000){
+			moneyIcon.setImageResource(R.drawable.platinum_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>100000){
+			moneyIcon.setImageResource(R.drawable.gold_money);
+		}
+		else if(Integer.parseInt(appPrefs.characterMoney())>10000){
+			moneyIcon.setImageResource(R.drawable.silver_money);
+		}
+		else {
+			moneyIcon.setImageResource(R.drawable.max_money);
+		}
 	}
 	
 	
@@ -278,20 +284,27 @@ public class Shop extends Activity {
 
 			dialog.getWindow().setBackgroundDrawableResource(R.drawable.empty);
 			
-
+			String itemTitle= item.getIcon();
+			itemTitle.replace('_', ' ');
 
 			TextView description = (TextView) dialog.findViewById(R.id.description);
 			TextView title = (TextView) dialog.findViewById(R.id.title);
 			ImageView icon = (ImageView) dialog.findViewById(R.id.icon);
 			
+			
 			description.setText(createDescription(item));
-			title.setText(item.getIcon());
+			title.setText(itemTitle);
 			icon.setImageResource(getResources().getIdentifier(item.getIcon(), "drawable", getPackageName()));
 			//ImageView image = (ImageView) dialog.findViewById(R.id.image);
 			//image.setImageResource(R.drawable.ic_launcher);
 
 			Button dialogButtonBuy = (Button) dialog.findViewById(R.id.buttonBuy);
 			Button dialogButtonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+			dialogButtonBuy.setTypeface(font);
+			dialogButtonCancel.setTypeface(font);
+			
+			dialogButtonBuy.setBackgroundResource(R.drawable.empty_shop);
+			dialogButtonCancel.setBackgroundResource(R.drawable.empty_shop);
 
 			dialogButtonCancel.setOnClickListener(new OnClickListener() {
 				@Override
@@ -315,6 +328,7 @@ public class Shop extends Activity {
 					else {
 					appPrefs.updateCharacterMoney(Integer.parseInt(item.getBuy()));
 					appPrefs.updateBonus(Integer.parseInt(item.getArmor()), Integer.parseInt(item.getDamage()));
+					updateMoneyStatus();
 					Toast.makeText(Shop.this, 
 							"Item bought.", 
 							Toast.LENGTH_LONG).show();	

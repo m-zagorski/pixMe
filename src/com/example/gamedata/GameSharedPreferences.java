@@ -32,6 +32,12 @@ public class GameSharedPreferences {
 	 private String firstSkillLevel="noFirstLevel";
 	 private String secondSkillLevel="noSecondLevel";
 	 private String thirdSkillLevel="noThirdLevel";
+	 
+	 private String wins="nopezNoWins";
+	 private String loses="nopezNoLoses";
+	 private String combatDescription="noCombatDescription";
+	 private String combatTitle="nopezXs";
+	 private String combatDesc="noxTY";
 	 //--
 	 
 	 //STATISTIC
@@ -48,7 +54,7 @@ public class GameSharedPreferences {
 	 
 	 public void createGame(String className){  
 	prefsEditor.putString(classN, className).commit();
-	prefsEditor.putString(level, "25").commit();
+	prefsEditor.putString(level, "6").commit();
 	prefsEditor.putString(experience, "0").commit();
 	prefsEditor.putString(money, "500000").commit();
 	prefsEditor.putString(attackItems, "0").commit();
@@ -59,6 +65,9 @@ public class GameSharedPreferences {
 	prefsEditor.putString(spentMoney, "0").commit();
 	prefsEditor.putString(defenseBonus, "0").commit();
 	prefsEditor.putString(attackBonus, "0").commit();
+	prefsEditor.putString(wins, "0").commit();
+	prefsEditor.putString(loses, "0").commit();
+	prefsEditor.putString(combatDescription, "noCombat").commit();
 	 }
 	 
 	 
@@ -86,6 +95,10 @@ public class GameSharedPreferences {
 	 public boolean ifFirstLaunch(){
 		 if(gamePrefs.getString(firstLaunch, "no").equals("no")){ return true;}
 		 else { return false; }
+	 }
+	 
+	 public void changeCombatStatus(){
+		 prefsEditor.putString(combatDescription, "noCombat").commit();
 	 }
 	 
 	 public void changeFirstLaunch(){
@@ -145,6 +158,44 @@ public class GameSharedPreferences {
 		 skills[4]=Integer.parseInt(gamePrefs.getString(thirdSkillLevel, "-500"));
 		 
 		 return skills;
+	 }
+	 
+	 
+	 public void setWinLose(String state, int money, int experience){
+		 int actual;
+		prefsEditor.putString(combatDescription, "Combat").commit();
+		 if(state.equals("lose")){
+		actual=	Integer.parseInt(gamePrefs.getString(loses, "-500")); 
+		actual++;
+		prefsEditor.putString(loses, Integer.toString(actual)).commit();
+		prefsEditor.putString(combatTitle, "You have lost!").commit();
+		prefsEditor.putString(combatDesc, "You may want to buy\n more items in the shop and then\n try again.").commit();
+		 }
+		 else{
+		int goldAlready=Integer.parseInt(gamePrefs.getString(this.money, "-500"));
+		int expAlready=Integer.parseInt(gamePrefs.getString(this.experience, "-500"));
+		goldAlready+=money;
+		expAlready+=experience;
+		actual=	Integer.parseInt(gamePrefs.getString(wins, "-500")); 
+		actual++;
+		prefsEditor.putString(combatTitle, "You have won!").commit();
+		prefsEditor.putString(combatDesc, "Congratulations! \nGold earned: "+money+"\nExperience earned: "+experience).commit();
+		prefsEditor.putString(loses, Integer.toString(actual)).commit();
+		prefsEditor.putString(this.money, Integer.toString(goldAlready)).commit();
+		prefsEditor.putString(this.experience, Integer.toString(expAlready)).commit();
+		 }
+	 }
+	 
+	 public String checkIfCombat(){
+		 return gamePrefs.getString(combatDescription, "noCombat");
+	 }
+	 
+	 public String getCombatTitle(){
+		 return gamePrefs.getString(combatTitle, "noPEzs");
+	 }
+	 
+	 public String getCombatDesc(){
+		return gamePrefs.getString(combatDesc, "-500");
 	 }
 	 
 	 public void updateSkill(int skillNumber){

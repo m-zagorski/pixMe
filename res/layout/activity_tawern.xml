@@ -2,22 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tavern_background"
+    android:background="@drawable/background_tavern"
     tools:context=".Tawern" >
-
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/empty_shop" />
 
     <ImageButton
         android:id="@+id/fightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/backButton"
+        android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/backButton"
         android:src="@drawable/empty_shop" />
 
@@ -25,16 +18,74 @@
         android:id="@+id/shopButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/fightButton"
+        android:layout_alignTop="@+id/fightButton"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/statisticButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/shopButton"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/shopButton"
+        android:src="@drawable/empty_shop" />
+
+    <ImageButton
+        android:id="@+id/musicButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/statisticButton"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/statisticButton"
         android:src="@drawable/empty_shop" />
 
     <ImageButton
         android:id="@+id/skillButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="47dp"
+        android:src="@drawable/skill_stairs" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/shopButton"
+        android:layout_marginTop="14dp"
+        android:layout_toRightOf="@+id/skillButton"
         android:src="@drawable/empty_shop" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/backButton"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/dead_soldier" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/shopButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="32dp"
+        android:src="@drawable/dead_soldier1" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="26dp"
+        android:layout_toRightOf="@+id/musicButton"
+        android:src="@drawable/dead_soldier2" />
 
 </RelativeLayout>

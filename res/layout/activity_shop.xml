@@ -81,20 +81,22 @@
         android:layout_centerVertical="true"
         android:src="@drawable/blacksmith" />
 
-    <TextView
-        android:id="@+id/money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
-
     <ImageView
         android:id="@+id/moneyIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/money"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/bronze_money" />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/bsguy"
+        android:layout_alignTop="@+id/moneyIcon"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp" />
 
 </RelativeLayout>

@@ -5,10 +5,12 @@ import java.util.Random;
 import com.example.gamedata.GameSharedPreferences;
 import com.example.gamedata.Item;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +27,8 @@ public class Sanctuary extends Activity {
 	ImageButton firstSkill=null;
 	ImageButton secondSkill=null;
 	ImageButton thirdSkill=null;
+	ImageButton backButton=null;
+	MediaPlayer sanctuaryMusic;
 	
 	final Context context=this;
 	
@@ -57,33 +61,100 @@ public class Sanctuary extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		appPrefs = new GameSharedPreferences(context);
-
+		sanctuaryMusic = MediaPlayer.create(this, R.raw.haunted_west);
 		
 		firstSkill = (ImageButton) findViewById(R.id.firstSkill);
 		secondSkill = (ImageButton) findViewById(R.id.secondSkill);
 		thirdSkill = (ImageButton) findViewById(R.id.thirdSkill);
+		backButton =  (ImageButton) findViewById(R.id.backButton);
 		
 		firstSkill.setBackgroundResource(R.drawable.empty_shop);
 		secondSkill.setBackgroundResource(R.drawable.empty_shop);
 		thirdSkill.setBackgroundResource(R.drawable.empty_shop);
+		backButton.setBackgroundResource(R.drawable.empty_shop);
 		
+		
+		
+		if(Integer.parseInt(appPrefs.characterLevel())==6){
+			firstSkill.setImageResource(R.drawable.chamber_closed);
+			secondSkill.setImageResource(R.drawable.chamber_closed);
+			thirdSkill.setImageResource(R.drawable.chamber_closed);
+		}
+		if(Integer.parseInt(appPrefs.characterLevel())==7){
+			firstSkill.setImageResource(R.drawable.chamber_third);
+			secondSkill.setImageResource(R.drawable.chamber_closed);
+			thirdSkill.setImageResource(R.drawable.chamber_closed);
+		}
+		if(Integer.parseInt(appPrefs.characterLevel())==8){
+			firstSkill.setImageResource(R.drawable.chamber_middle);
+			secondSkill.setImageResource(R.drawable.chamber_third);
+			thirdSkill.setImageResource(R.drawable.chamber_closed);
+		}
+		if(Integer.parseInt(appPrefs.characterLevel())==9){
+			firstSkill.setImageResource(R.drawable.chamber_open);
+			secondSkill.setImageResource(R.drawable.chamber_third);
+			thirdSkill.setImageResource(R.drawable.chamber_third);
+		}
+		if(Integer.parseInt(appPrefs.characterLevel())>9 && Integer.parseInt(appPrefs.characterLevel())<12 ){
+			secondSkill.setImageResource(R.drawable.chamber_middle);
+			thirdSkill.setImageResource(R.drawable.chamber_third);
+		}
+		if(Integer.parseInt(appPrefs.characterLevel())>12 && Integer.parseInt(appPrefs.characterLevel())<15){
+			thirdSkill.setImageResource(R.drawable.chamber_middle);
+		}
+		
+		
+		if(Integer.parseInt(appPrefs.characterLevel())>9){ firstSkill.setImageResource(R.drawable.chamber_open);}
+		if(Integer.parseInt(appPrefs.characterLevel())>=12){ secondSkill.setImageResource(R.drawable.chamber_open); }
+		if(Integer.parseInt(appPrefs.characterLevel())>=15){ thirdSkill.setImageResource(R.drawable.chamber_open); }
+			
+	    if(appPrefs.getMusicStatus().equals("yes")){
+	        sanctuaryMusic.start();
+	        sanctuaryMusic.setLooping(true);
+		}	
 		//firstSkill.setImageResource(getResources().getIdentifier("empty_shop", "drawable", getPackageName()));
 		//secondSkill.setImageResource(getResources().getIdentifier("empty_shop", "drawable", getPackageName()));
 		//thirdSkill.setImageResource(getResources().getIdentifier("empty_shop", "drawable", getPackageName()));
 		
 	 	firstSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            		createDialog(0);
+            		if(Integer.parseInt(appPrefs.characterLevel())<9){
+            			Toast.makeText(Sanctuary.this, 
+								"Level 9 required to enter this chamber.", 
+								Toast.LENGTH_LONG).show();	
+            		}
+            		else {
+            			createDialog(0);	
+            		}
             }
             });
 	 	secondSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            		createDialog(1);
+        		if(Integer.parseInt(appPrefs.characterLevel())<12){
+        			Toast.makeText(Sanctuary.this, 
+							"Level 12 required to enter this chamber.", 
+							Toast.LENGTH_LONG).show();	
+        		}
+        		else {
+        			createDialog(1);	
+        		}
             }
             });
 	 	thirdSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            		createDialog(2);
+        		if(Integer.parseInt(appPrefs.characterLevel())<15){
+        			Toast.makeText(Sanctuary.this, 
+							"Level 15 required to enter this chamber.", 
+							Toast.LENGTH_LONG).show();	
+        		}
+        		else {
+        			createDialog(2);	
+        		}
+            }
+            });
+	 	backButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	startActivity(new Intent(Sanctuary.this, Tawern.class));
             }
             });
 		
@@ -198,7 +269,11 @@ else if(skillID==9){
 else { return false;}
 }
 	
-	
+@Override
+protected void onPause(){
+	super.onPause();
+	sanctuaryMusic.release();
+}	
 	
 
 }
