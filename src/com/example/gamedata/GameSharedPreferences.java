@@ -54,7 +54,7 @@ public class GameSharedPreferences {
 	 
 	 public void createGame(String className){  
 	prefsEditor.putString(classN, className).commit();
-	prefsEditor.putString(level, "6").commit();
+	prefsEditor.putString(level, "1").commit();
 	prefsEditor.putString(experience, "0").commit();
 	prefsEditor.putString(money, "500000").commit();
 	prefsEditor.putString(attackItems, "0").commit();
@@ -178,12 +178,32 @@ public class GameSharedPreferences {
 		expAlready+=experience;
 		actual=	Integer.parseInt(gamePrefs.getString(wins, "-500")); 
 		actual++;
+		levelUp();
 		prefsEditor.putString(combatTitle, "You have won!").commit();
 		prefsEditor.putString(combatDesc, "Congratulations! \nGold earned: "+money+"\nExperience earned: "+experience).commit();
 		prefsEditor.putString(loses, Integer.toString(actual)).commit();
 		prefsEditor.putString(this.money, Integer.toString(goldAlready)).commit();
 		prefsEditor.putString(this.experience, Integer.toString(expAlready)).commit();
 		 }
+	 }
+	 
+	 
+	 private void levelUp(){
+		 int tempExp=50;
+		 for(int i=1; i<=Integer.parseInt(gamePrefs.getString(level, "-500")); i++){
+			 tempExp=tempExp*2;
+		 }
+		 if(Integer.parseInt(experience)>tempExp){
+			 int currentLv= Integer.parseInt(gamePrefs.getString(level, "-500"));
+			 currentLv++;
+			 prefsEditor.putString(level, Integer.toString(currentLv)).commit();
+		 }
+	 }
+	 
+	 public void addLevel(){
+		 int currentLv= Integer.parseInt(gamePrefs.getString(level, "-500"));
+		 currentLv++;
+		 prefsEditor.putString(level, Integer.toString(currentLv)).commit(); 
 	 }
 	 
 	 public String checkIfCombat(){

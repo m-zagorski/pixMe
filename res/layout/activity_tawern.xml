@@ -88,4 +88,12 @@
         android:layout_toRightOf="@+id/musicButton"
         android:src="@drawable/dead_soldier2" />
 
+    <ImageButton
+        android:id="@+id/levelUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView2"
+        android:layout_alignTop="@+id/skillButton"
+        android:src="@drawable/empty_shop" />
+
 </RelativeLayout>

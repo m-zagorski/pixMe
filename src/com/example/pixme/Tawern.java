@@ -29,8 +29,11 @@ public class Tawern extends Activity {
 	ImageButton skillButton=null;
 	ImageButton statisticButton=null;
 	ImageButton musicButton=null;
+	ImageButton levelUp=null;
 	GameSharedPreferences appPrefs;
 	MediaPlayer tawernMusic;
+	MediaPlayer winSound, loseSound;
+	
 	int length;
 	final Context context=this;
 	Typeface font;
@@ -50,6 +53,9 @@ public class Tawern extends Activity {
 		statisticButton = (ImageButton) findViewById(R.id.statisticButton);
 		musicButton = (ImageButton) findViewById(R.id.musicButton);
 	    tawernMusic = MediaPlayer.create(this, R.raw.slaughter_tavern);
+	    winSound =  MediaPlayer.create(this, (getResources().getIdentifier("barbarianwin", "raw", getPackageName())));
+	    loseSound =  MediaPlayer.create(this, (getResources().getIdentifier("barbarianlose", "raw", getPackageName())));
+	    levelUp = (ImageButton) findViewById(R.id.levelUp);
 	    
 	    backButton.setBackgroundResource(R.drawable.empty_shop);
 	    fightButton.setBackgroundResource(R.drawable.empty_shop);
@@ -57,12 +63,19 @@ public class Tawern extends Activity {
 	   skillButton.setBackgroundResource(R.drawable.empty_shop);
 		statisticButton.setBackgroundResource(R.drawable.empty_shop);
 		musicButton.setBackgroundResource(R.drawable.empty_shop);
+		levelUp.setBackgroundResource(R.drawable.empty_shop);
 		
 	
 		appPrefs = new GameSharedPreferences(context);
 		font = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
 		
 		if(appPrefs.checkIfCombat().equals("Combat")){
+			if(appPrefs.getCombatTitle().equals("You have won!")){
+				winSound.start();
+			}
+			else {
+				loseSound.start();
+			}
     		createDialog();
     		}
 		
@@ -106,6 +119,11 @@ public class Tawern extends Activity {
             });
 	  	statisticButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+            }
+            });
+	  	levelUp.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	appPrefs.addLevel();
             }
             });
 	  

@@ -28,7 +28,11 @@ public class Sanctuary extends Activity {
 	ImageButton secondSkill=null;
 	ImageButton thirdSkill=null;
 	ImageButton backButton=null;
+	ImageButton chamberGuardian=null;
+	
 	MediaPlayer sanctuaryMusic;
+	MediaPlayer chamberGuardianSound;
+	MediaPlayer doorsClosed;
 	
 	final Context context=this;
 	
@@ -47,9 +51,9 @@ public class Sanctuary extends Activity {
 			10000
 	};
 	final String skillNames[][]={
-			{"barbOne", "barbTwo", "barbThree"},
-			{"wizOne", "wizTwo", "wizThree"},
-			{"hunOne", "hunTwo", "hunThree"}
+			{"Regenerate", "Stomp", "Crush"},
+			{"Molten rain", "Fire Nova", "Pyroblast"},
+			{"Multishot", "Poison Arrow", "Accurate Shot"}
 	};
 	
 	
@@ -61,17 +65,22 @@ public class Sanctuary extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		appPrefs = new GameSharedPreferences(context);
+		
 		sanctuaryMusic = MediaPlayer.create(this, R.raw.haunted_west);
+		chamberGuardianSound =  MediaPlayer.create(this, (getResources().getIdentifier("chamberguy"+new Random().nextInt(1), "raw", getPackageName())));
+		doorsClosed =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"closeddoors", "raw", getPackageName())));
 		
 		firstSkill = (ImageButton) findViewById(R.id.firstSkill);
 		secondSkill = (ImageButton) findViewById(R.id.secondSkill);
 		thirdSkill = (ImageButton) findViewById(R.id.thirdSkill);
 		backButton =  (ImageButton) findViewById(R.id.backButton);
+		chamberGuardian = (ImageButton) findViewById(R.id.chamberGuardian);
 		
 		firstSkill.setBackgroundResource(R.drawable.empty_shop);
 		secondSkill.setBackgroundResource(R.drawable.empty_shop);
 		thirdSkill.setBackgroundResource(R.drawable.empty_shop);
 		backButton.setBackgroundResource(R.drawable.empty_shop);
+		chamberGuardian.setBackgroundResource(R.drawable.empty_shop);
 		
 		
 		
@@ -110,6 +119,7 @@ public class Sanctuary extends Activity {
 			
 	    if(appPrefs.getMusicStatus().equals("yes")){
 	        sanctuaryMusic.start();
+	        chamberGuardianSound.start();
 	        sanctuaryMusic.setLooping(true);
 		}	
 		//firstSkill.setImageResource(getResources().getIdentifier("empty_shop", "drawable", getPackageName()));
@@ -119,6 +129,7 @@ public class Sanctuary extends Activity {
 	 	firstSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             		if(Integer.parseInt(appPrefs.characterLevel())<9){
+            			doorsClosed.start();
             			Toast.makeText(Sanctuary.this, 
 								"Level 9 required to enter this chamber.", 
 								Toast.LENGTH_LONG).show();	
@@ -131,6 +142,7 @@ public class Sanctuary extends Activity {
 	 	secondSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
         		if(Integer.parseInt(appPrefs.characterLevel())<12){
+        			doorsClosed.start();
         			Toast.makeText(Sanctuary.this, 
 							"Level 12 required to enter this chamber.", 
 							Toast.LENGTH_LONG).show();	
@@ -143,6 +155,7 @@ public class Sanctuary extends Activity {
 	 	thirdSkill.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
         		if(Integer.parseInt(appPrefs.characterLevel())<15){
+        			doorsClosed.start();
         			Toast.makeText(Sanctuary.this, 
 							"Level 15 required to enter this chamber.", 
 							Toast.LENGTH_LONG).show();	
@@ -155,6 +168,11 @@ public class Sanctuary extends Activity {
 	 	backButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
             	startActivity(new Intent(Sanctuary.this, Tawern.class));
+            }
+            });
+	 	chamberGuardian.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            	chamberGuardianSound.start();
             }
             });
 		
@@ -273,6 +291,8 @@ else { return false;}
 protected void onPause(){
 	super.onPause();
 	sanctuaryMusic.release();
+	chamberGuardianSound.release();
+	doorsClosed.release();
 }	
 	
 

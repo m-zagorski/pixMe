@@ -53,6 +53,7 @@ public class Shop extends Activity {
 	ImageView moneyIcon=null;
 	
 	MediaPlayer bsmithSpeech;
+	MediaPlayer toLowLevel;
 	
 	int playerLevel=0;
 	//int playerMoney=0;
@@ -112,7 +113,8 @@ public class Shop extends Activity {
 		font = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
 		
 		bsmithSpeech = MediaPlayer.create(this, (getResources().getIdentifier("bsmith0"+new Random().nextInt(9), "raw", getPackageName())));
-	    if(appPrefs.getMusicStatus().equals("yes")){
+	    toLowLevel =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"tolowlevel", "raw", getPackageName())));
+		if(appPrefs.getMusicStatus().equals("yes")){
 	        bsmithSpeech.start();
 	      
 		    }
@@ -316,6 +318,7 @@ public class Shop extends Activity {
 				@Override
 				public void onClick(View v) {
 					if(Integer.parseInt(item.getLevel())>playerLevel){
+						toLowLevel.start();
 						Toast.makeText(Shop.this, 
 								"Your level is too low to buy that item.", 
 								Toast.LENGTH_LONG).show();
@@ -347,6 +350,7 @@ public class Shop extends Activity {
 	protected void onPause(){
 		super.onPause();
 		bsmithSpeech.release();
+		toLowLevel.release();
 	}
 
 }
