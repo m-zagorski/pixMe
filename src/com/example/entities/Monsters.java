@@ -17,6 +17,7 @@ public interface Monsters {
 	public void getDamage(long damage);
 	public long getHealth();
 	public boolean isMonsterAlive();
+	public long getMaxHealth();
 
 }
 

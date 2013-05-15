@@ -112,7 +112,8 @@ public class MainScreen extends Activity {
         });
 	    exit.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	startActivity(new Intent(MainScreen.this, Shop.class));
+            	finish();
+            	System.exit(0);
             }
         });
 		musicButton.setOnClickListener(new OnClickListener() {
@@ -279,7 +280,7 @@ public class MainScreen extends Activity {
 	}
 
 	
-/*
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	     if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -288,7 +289,7 @@ public class MainScreen extends Activity {
 	     }
 	     return super.onKeyDown(keyCode, event);    
 	}
-*/
+
 
 
 

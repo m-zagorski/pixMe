@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -53,8 +54,6 @@ public class Tawern extends Activity {
 		statisticButton = (ImageButton) findViewById(R.id.statisticButton);
 		musicButton = (ImageButton) findViewById(R.id.musicButton);
 	    tawernMusic = MediaPlayer.create(this, R.raw.slaughter_tavern);
-	    winSound =  MediaPlayer.create(this, (getResources().getIdentifier("barbarianwin", "raw", getPackageName())));
-	    loseSound =  MediaPlayer.create(this, (getResources().getIdentifier("barbarianlose", "raw", getPackageName())));
 	    levelUp = (ImageButton) findViewById(R.id.levelUp);
 	    
 	    backButton.setBackgroundResource(R.drawable.empty_shop);
@@ -68,6 +67,10 @@ public class Tawern extends Activity {
 	
 		appPrefs = new GameSharedPreferences(context);
 		font = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
+		
+		
+	    winSound =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"win", "raw", getPackageName())));
+	    loseSound =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"lose", "raw", getPackageName())));
 		
 		if(appPrefs.checkIfCombat().equals("Combat")){
 			if(appPrefs.getCombatTitle().equals("You have won!")){
@@ -197,4 +200,16 @@ public class Tawern extends Activity {
 		dialog.show();
 }
 
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	     if (keyCode == KeyEvent.KEYCODE_BACK) {
+	     //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+	     return true;
+	     }
+	     return super.onKeyDown(keyCode, event);    
+	}
+	
+	
+	
 }

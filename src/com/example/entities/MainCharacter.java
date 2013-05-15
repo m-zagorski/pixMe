@@ -112,6 +112,10 @@ public class MainCharacter implements Characters{
 			totalHealth=health;
 		}
 	}
+	
+	public long getMaxHealth(){
+		return totalHealth;
+	}
 
 	public void onDraw(Canvas canvas) {
 		if(animateSkill){ animate(); }

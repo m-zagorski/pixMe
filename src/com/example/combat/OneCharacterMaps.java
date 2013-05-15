@@ -75,7 +75,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 	Cursor monstersCursor;
 	ArrayList<Map> allMaps = new ArrayList<Map>();
 	ArrayList<com.example.gamedata.Monster> allMonsters = new ArrayList<com.example.gamedata.Monster>();
-	Paint cooldowns, cdFade, health, damagePaint, damageDotPaint;
+	Paint cooldowns, cdFade, health, damagePaint, damageDotPaint, healthBar, healthBarS;
 	Map currentMap=null;
 	
 	Bitmap backgroundBitmap, playerBitmap, firstMonsterBitmap, secondMonsterBitmap, thirdMonsterBitmap, fourthMonsterBitmap;
@@ -228,6 +228,16 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 		
 		cdFade = new Paint();
 		cdFade.setARGB(90, 0, 0, 0);
+		
+		
+	    healthBar = new Paint();
+	    healthBar.setColor(Color.rgb(166, 36, 36));
+	    
+	    healthBarS = new Paint();
+	    healthBarS.setColor(Color.BLACK);
+	    healthBarS.setStyle(Paint.Style.STROKE);
+	    
+	    
 	}
 	
 	
@@ -333,7 +343,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			}
 			else{
 				canvas.drawBitmap(secondSkillBitmapCd, 0, (screenHeight/2)-54, null);
-				canvas.drawText(""+secondSkillCd, 27, screenHeight/2, cooldowns);
+				canvas.drawText(""+secondSkillCd, 27, screenHeight/2+20, cooldowns);
 			}
 			if(thirdSkillCd==0){
 			canvas.drawBitmap(thirdSkill, 0, (screenHeight/2)+44, null);
@@ -351,7 +361,7 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 			
 		
-			
+		
 			
 			//HEALTH
 			Typeface font = Typeface.createFromAsset(getAssets(), "8.TTF");
@@ -361,12 +371,32 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			healthNumbers.setTextSize(25);
 			healthNumbers.setTypeface(font);
 			healthNumbers.setColor(Color.BLUE);
+			
+			/*
 			canvas.drawText(""+player.getHealth(), player.getX()+30, player.getY(), healthNumbers);
 			canvas.drawText(""+firstMonster.getHealth(), firstMonster.getX()+30, firstMonster.getY(), healthNumbers);
 			if(checkIfMonsterExists(2)){ canvas.drawText(""+secondMonster.getHealth(), secondMonster.getX()+30, secondMonster.getY(), healthNumbers);}
 			if(checkIfMonsterExists(3)){ canvas.drawText(""+thirdMonster.getHealth(), thirdMonster.getX()+30, thirdMonster.getY(), healthNumbers); }
 			if(checkIfMonsterExists(4)){ canvas.drawText(""+fourthMonster.getHealth(), fourthMonster.getX()+30, fourthMonster.getY(), healthNumbers); }
-			canvas.drawText(""+playerFirstSkill, 300, 300, cooldowns);
+			*/
+			
+			canvas.drawRect(player.getX(), player.getY()-20, player.getX()+getCurrentHealth(player.getHealth(), player.getMaxHealth()), player.getY()-10, healthBar);
+			canvas.drawRect(player.getX(), player.getY()-20, player.getX()+100, player.getY()-10, healthBarS);
+		
+			
+			if(firstMonster.getHealth()>0){ healthBar(canvas,firstMonster); }
+			if(checkIfMonsterExists(2)){ 
+				if(secondMonster.getHealth()>0){ healthBar(canvas,secondMonster); }
+			}
+			if(checkIfMonsterExists(3)){ 
+				if(thirdMonster.getHealth()>0){ healthBar(canvas,thirdMonster); }
+			}
+			if(checkIfMonsterExists(4)){
+				if(fourthMonster.getHealth()>0) { healthBar(canvas,fourthMonster); }
+			}
+			
+			
+			canvas.drawText(""+getCurrentHealth(player.getHealth(), player.getMaxHealth())+" : "+player.getHealth()+ " : "+player.getMaxHealth(), 300, 300, cooldowns);
 			//DRAW COOLDOWNS
 			/*
 			if(secondSkillCd>0){ 
@@ -584,6 +614,25 @@ public class OneCharacterMaps extends Activity implements OnTouchListener{
 			
 		
 		}
+		
+		
+		
+		private int getCurrentHealth(long hp, long maxhp){
+			return (int) ((hp*100)/maxhp);
+		}
+		
+		  public void healthBar(Canvas canvas, Monsters monx)
+		  {
+		      canvas.drawRect(monx.getX(), monx.getY()-20, monx.getX()+getCurrentHealth(monx.getHealth(), monx.getMaxHealth()), monx.getY()-10, healthBar);
+		      canvas.drawRect(monx.getX(), monx.getY()-20, monx.getX()+100, monx.getY()-10, healthBarS);
+		  }
+		
+		
+		
+		
+		
+		
+		
 		public void pause(){
 		isOk=false;	
 		while(true){

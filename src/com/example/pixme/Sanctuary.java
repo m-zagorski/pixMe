@@ -11,6 +11,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -36,6 +38,9 @@ public class Sanctuary extends Activity {
 	
 	final Context context=this;
 	
+	Typeface buttonFont=null;
+	Typeface textFont=null;
+	
 
 	
 	final int upgradeCosts[]={ 
@@ -54,6 +59,24 @@ public class Sanctuary extends Activity {
 			{"Regenerate", "Stomp", "Crush"},
 			{"Molten rain", "Fire Nova", "Pyroblast"},
 			{"Multishot", "Poison Arrow", "Accurate Shot"}
+	};
+	
+	final String skillDescription[][]={
+			{"Regenerates your health \ndepending on level.\nCooldown: 3 turns.", "Stuns all monsters \nfor 3 turns\nand deals damage.\nCooldown: 5 turns.", "Powerfull crushing attack.\nCooldown: 8 turns."},
+			{"Deals damage to all enemies \non the field.\nCooldown: 3 turns.", "Stuns all enemies \nfor 2 turns\nand deals damage.\nCooldown: 5 turns.", "Powerfull fire attack \nthat crushes enemies.\nCooldown: 8 turns."},
+			{"Shots arrows that \ndeal damage to\nall enemies.\nCooldown: 3 turns.", "Stuns all enemies for 2 turns.\nCooldown: 5 turns.", "Accurate and powerfull shot.\nCooldown: 8 turns."}
+	};
+	
+	final int skillBaseDamage[][]={
+			{25, 15, 122 },
+			{50, 30, 155 },
+			{40, 20, 133 }
+	};
+	
+	final int skillNextDamage[][]={
+			{2, 2, 3 },
+			{5, 3, 4 },
+			{4, 2, 3 }
 	};
 	
 	
@@ -82,7 +105,8 @@ public class Sanctuary extends Activity {
 		backButton.setBackgroundResource(R.drawable.empty_shop);
 		chamberGuardian.setBackgroundResource(R.drawable.empty_shop);
 		
-		
+		buttonFont = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
+		textFont = Typeface.createFromAsset(getAssets(), "kree.ttf");
 		
 		if(Integer.parseInt(appPrefs.characterLevel())==6){
 			firstSkill.setImageResource(R.drawable.chamber_closed);
@@ -189,23 +213,40 @@ public class Sanctuary extends Activity {
 
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.sanctuary_dialog);
-
+		int row=0;
 		dialog.getWindow().setBackgroundDrawableResource(R.drawable.empty);
-		
+		if(appPrefs.getCharacterClass().equals("barbarian")){ row=0; }
+		else if(appPrefs.getCharacterClass().equals("wizard")){ row=1; }
+		else { row=2;}
 
 
 		TextView skillDescription = (TextView) dialog.findViewById(R.id.skillDescription);
 		TextView title = (TextView) dialog.findViewById(R.id.skillName);
 		TextView skillNextLevel= (TextView) dialog.findViewById(R.id.skillNextLevel);
-		title.setText(skillNames[0][skillID]);
-		skillDescription.setText("DESCIRPION"+appPrefs.skillLevel(skillID));
-		skillNextLevel.setText(""+upgradeCosts[appPrefs.skillLevel(skillID)]);
+		ImageView skillIcon= (ImageView) dialog.findViewById(R.id.skillIcon);
+		title.setText(skillNames[row][skillID]);
+		skillDescription.setText("Current skill level: "+appPrefs.skillLevel(skillID)+"\n"+this.skillDescription[row][skillID]);
+		skillNextLevel.setText(createDesc(row, skillID)+"\nUpgrade cost: "+upgradeCosts[appPrefs.skillLevel(skillID)]);
+		//skillNextLevel.setText(""+upgradeCosts[appPrefs.skillLevel(skillID)]);
 		
 		//ImageView image = (ImageView) dialog.findViewById(R.id.image);
 		//image.setImageResource(R.drawable.ic_launcher);
 
 		Button dialogButtonBuy = (Button) dialog.findViewById(R.id.upgrade);
 		Button dialogButtonCancel = (Button) dialog.findViewById(R.id.cancel);
+		
+		dialogButtonBuy.setBackgroundResource(R.drawable.empty_shop);
+		dialogButtonCancel.setBackgroundResource(R.drawable.empty_shop);
+		dialogButtonBuy.setTypeface(buttonFont);
+		dialogButtonCancel.setTypeface(buttonFont);
+		title.setTypeface(textFont);
+		skillDescription.setTypeface(textFont);
+		skillNextLevel.setTypeface(textFont);
+		
+		
+		if(skillID==0){ skillIcon.setImageResource(getResources().getIdentifier(appPrefs.getCharacterClass()+"skillfirst", "drawable", getPackageName()));    } 
+		else if(skillID==1) {  skillIcon.setImageResource(getResources().getIdentifier(appPrefs.getCharacterClass()+"skillsecond", "drawable", getPackageName()));   }
+		else { skillIcon.setImageResource(getResources().getIdentifier(appPrefs.getCharacterClass()+"skillthird", "drawable", getPackageName())); }
 
 		dialogButtonCancel.setOnClickListener(new OnClickListener() {
 			@Override
@@ -254,7 +295,9 @@ public class Sanctuary extends Activity {
 }
 	
 	
-	
+private String createDesc(int row, int skillID){
+	return "Base damage: " + skillBaseDamage[row][skillID]+ "%\nCurrent bonus: "+skillNextDamage[row][skillID]*appPrefs.skillLevel(skillID) + "%\nNext level gives: "+ skillNextDamage[row][skillID]+"%";
+}
 	
 private boolean ifUpgraded(int skillID){
 if(skillID==1){
@@ -294,6 +337,16 @@ protected void onPause(){
 	chamberGuardianSound.release();
 	doorsClosed.release();
 }	
-	
+
+
+
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+     if (keyCode == KeyEvent.KEYCODE_BACK) {
+     //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+     return true;
+     }
+     return super.onKeyDown(keyCode, event);    
+}
 
 }

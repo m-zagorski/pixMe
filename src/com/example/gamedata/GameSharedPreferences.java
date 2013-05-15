@@ -193,7 +193,7 @@ public class GameSharedPreferences {
 		 for(int i=1; i<=Integer.parseInt(gamePrefs.getString(level, "-500")); i++){
 			 tempExp=tempExp*2;
 		 }
-		 if(Integer.parseInt(experience)>tempExp){
+		 if(Integer.parseInt(gamePrefs.getString(experience, "-500"))>tempExp){
 			 int currentLv= Integer.parseInt(gamePrefs.getString(level, "-500"));
 			 currentLv++;
 			 prefsEditor.putString(level, Integer.toString(currentLv)).commit();

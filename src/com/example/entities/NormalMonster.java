@@ -30,6 +30,7 @@ public class NormalMonster implements Monsters{
 
 
 	public long health;
+	public long maxHealth;
 	public int armor;
 	public int damage;
 	//private int playerLevel;
@@ -83,6 +84,12 @@ public class NormalMonster implements Monsters{
 			health+= health*(0.5*playerLevel);
 			damage+= damage*(0.7*playerLevel);
 		}
+		maxHealth=health;
+	}
+	
+	
+	public long getMaxHealth(){
+		return maxHealth;
 	}
 
 	public void onDraw(Canvas canvas) {

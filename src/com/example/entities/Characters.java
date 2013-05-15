@@ -17,5 +17,6 @@ public interface Characters {
 	public void secondSkillDone();
 	public void startAnimateSkill();
 	public long doDotDamage();
+	public long getMaxHealth();
 	
 }
