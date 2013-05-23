@@ -111,6 +111,7 @@ public class MainCharacter implements Characters{
 			damage+=damage*(0.6*level);
 			totalHealth=health;
 		}
+		damage+=plusDamage;
 	}
 	
 	public long getMaxHealth(){
@@ -237,7 +238,8 @@ public void getDamage(long damage){
 	if(health>totalHealth){ health=totalHealth; }
 	}
 	else{
-	health-=damage;
+	long armor= damage*((this.armor+plusArmor)/100);
+	health-=(damage-armor);
 	if(health<=0){ health=0; playerDead=true;}
 	}
 }
