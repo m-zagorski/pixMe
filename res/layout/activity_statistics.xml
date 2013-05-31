@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:background="@drawable/statistic_background"
+    tools:context=".Statistics" >
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="56dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/experience"
+        android:layout_below="@+id/experience"
+        android:layout_marginTop="18dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/defensebonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/attackbonus"
+        android:layout_below="@+id/attackbonus"
+        android:layout_marginTop="16dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/wins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/level"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="130dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/loses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/experience"
+        android:layout_alignLeft="@+id/wins"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/spentmoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/gold"
+        android:layout_alignBottom="@+id/gold"
+        android:layout_alignLeft="@+id/loses"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/attackitems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/attackbonus"
+        android:layout_alignBottom="@+id/attackbonus"
+        android:layout_alignLeft="@+id/spentmoney"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/defenseitems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/defensebonus"
+        android:layout_alignBottom="@+id/defensebonus"
+        android:layout_alignLeft="@+id/attackitems"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/empty_shop" />
+
+    <TextView
+        android:id="@+id/experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/level"
+        android:layout_below="@+id/level"
+        android:layout_marginTop="14dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/attackbonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gold"
+        android:layout_below="@+id/gold"
+        android:layout_marginTop="16dp"
+        android:text="Medium Text"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

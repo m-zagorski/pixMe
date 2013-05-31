@@ -5,14 +5,47 @@
     tools:context=".ShopDialog" >
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
-         android:textSize="15dp"
-        android:text="TextView" />
+        android:layout_marginTop="27dp"
+        android:text="Medium Text"
+        android:textColor="#99001F"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/poison_hand" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Medium Text"
+         android:textColor="#FFFFFF"
+        android:textSize="25dp" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/buttonBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="26dp"
+        android:layout_toLeftOf="@+id/imageView1"
+              android:textColor="#99001F"
+        android:textSize="25dp" 
+        android:text="Buy" />
 
     <Button
         android:id="@+id/buttonCancel"
@@ -20,38 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/buttonBuy"
         android:layout_alignBottom="@+id/buttonBuy"
-        android:layout_toRightOf="@+id/description"
-        android:textColor="#99001F"
-         android:textSize="20dp"
-        android:text="CANCEL" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/description"
-        android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-         android:textSize="18dp"
-        android:src="@drawable/poison_sword" />
-
-    <Button
-        android:id="@+id/buttonBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/description"
-        android:layout_marginTop="36dp"
-        android:layout_toLeftOf="@+id/title"
-        android:text="BUY"
-        android:textColor="#99001F"
-        android:textSize="20dp" />
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/imageView1"
+              android:textColor="#99001F"
+        android:textSize="25dp" 
+        android:text="Cancel" />
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class Story extends Activity implements OnTouchListener {
 	//Intent intent=null;
 	Context ctx=null;
+
 	
 	
 	@Override

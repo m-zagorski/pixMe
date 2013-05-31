@@ -55,18 +55,18 @@ public class GameSharedPreferences {
 	 public void createGame(String className){  
 	prefsEditor.putString(classN, className).commit();
 	prefsEditor.putString(level, "1").commit();
-	prefsEditor.putString(experience, "0").commit();
+	prefsEditor.putString(experience, "500").commit();
 	prefsEditor.putString(money, "500000").commit();
-	prefsEditor.putString(attackItems, "0").commit();
-	prefsEditor.putString(defenseItems, "0").commit();
+	prefsEditor.putString(attackItems, "5").commit();
+	prefsEditor.putString(defenseItems, "6").commit();
 	prefsEditor.putString(firstSkillLevel, "1").commit();
 	prefsEditor.putString(secondSkillLevel, "1").commit();
 	prefsEditor.putString(thirdSkillLevel, "1").commit();
-	prefsEditor.putString(spentMoney, "0").commit();
-	prefsEditor.putString(defenseBonus, "0").commit();
-	prefsEditor.putString(attackBonus, "0").commit();
-	prefsEditor.putString(wins, "0").commit();
-	prefsEditor.putString(loses, "0").commit();
+	prefsEditor.putString(spentMoney, "1000").commit();
+	prefsEditor.putString(defenseBonus, "50").commit();
+	prefsEditor.putString(attackBonus, "90").commit();
+	prefsEditor.putString(wins, "5").commit();
+	prefsEditor.putString(loses, "3").commit();
 	prefsEditor.putString(combatDescription, "noCombat").commit();
 	 }
 	 
@@ -80,6 +80,21 @@ public class GameSharedPreferences {
 		 return info;
 	 }
 	 
+	 
+	 public String[] statisticInfo(){
+		 String info[] = new String[10];
+		 info[0] = gamePrefs.getString(level, "-15");
+		 info[1] = gamePrefs.getString(experience, "-5012");
+		 info[2] = gamePrefs.getString(money, "-5012");
+		 info[3] = gamePrefs.getString(attackBonus, "-5012");
+		 info[4] = gamePrefs.getString(defenseBonus, "-5012");
+		 info[5] = gamePrefs.getString(wins, "-5012");
+		 info[6] = gamePrefs.getString(loses, "-5012");
+		 info[7] = gamePrefs.getString(spentMoney, "-5012");
+		 info[8] = gamePrefs.getString(attackItems, "-5012");
+		 info[9] = gamePrefs.getString(defenseItems, "-5012");
+		 return info;
+	 }
 	 
 	 public int skillLevel(int id){
 		 if (id==0){ return Integer.parseInt(gamePrefs.getString(firstSkillLevel, "-99"));}

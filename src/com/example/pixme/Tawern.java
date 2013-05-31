@@ -122,6 +122,7 @@ public class Tawern extends Activity {
             });
 	  	statisticButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+            	startActivity(new Intent(Tawern.this, Statistics.class));
             }
             });
 	  	levelUp.setOnClickListener(new OnClickListener() {
