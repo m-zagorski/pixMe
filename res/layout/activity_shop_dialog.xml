@@ -17,7 +17,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
@@ -40,23 +40,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="26dp"
-        android:layout_toLeftOf="@+id/imageView1"
-              android:textColor="#99001F"
-        android:textSize="25dp" 
-        android:text="Buy" />
+        android:layout_marginRight="34dp"
+        android:layout_toLeftOf="@+id/icon"
+        android:text="Buy"
+        android:textColor="#99001F"
+        android:textSize="25dp" />
 
     <Button
         android:id="@+id/buttonCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonBuy"
-        android:layout_alignBottom="@+id/buttonBuy"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/imageView1"
-              android:textColor="#99001F"
-        android:textSize="25dp" 
-        android:text="Cancel" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="41dp"
+        android:layout_toRightOf="@+id/icon"
+        android:text="Cancel"
+        android:textColor="#99001F"
+        android:textSize="25dp" />
 
 </RelativeLayout>

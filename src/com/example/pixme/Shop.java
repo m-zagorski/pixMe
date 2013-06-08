@@ -34,7 +34,8 @@ public class Shop extends Activity {
 	GameSharedPreferences appPrefs;
 	ArrayList<Item> allItems = new ArrayList<Item>();
 	ArrayList<Item> shopItems= new ArrayList<Item>();
-	Typeface font;  
+	Typeface font;
+	Typeface fontDesc;
 	
 	final Context context=this;
 	ImageButton shopOne=null;
@@ -112,6 +113,7 @@ public class Shop extends Activity {
 		fillItemsList();
 		fillShop();
 		font = Typeface.createFromAsset(getAssets(), "bloodthirsty.ttf");
+		fontDesc = Typeface.createFromAsset(getAssets(), "kree.ttf");
 		
 		bsmithSpeech = MediaPlayer.create(this, (getResources().getIdentifier("bsmith0"+new Random().nextInt(9), "raw", getPackageName())));
 	    toLowLevel =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"tolowlevel", "raw", getPackageName())));
@@ -300,7 +302,8 @@ public class Shop extends Activity {
 			icon.setImageResource(getResources().getIdentifier(item.getIcon(), "drawable", getPackageName()));
 			//ImageView image = (ImageView) dialog.findViewById(R.id.image);
 			//image.setImageResource(R.drawable.ic_launcher);
-
+			title.setTypeface(font);
+			description.setTypeface(fontDesc);
 			Button dialogButtonBuy = (Button) dialog.findViewById(R.id.buttonBuy);
 			Button dialogButtonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
 			dialogButtonBuy.setTypeface(font);

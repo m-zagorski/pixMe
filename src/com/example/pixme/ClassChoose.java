@@ -14,20 +14,18 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ClassChoose extends Activity {
-	ImageButton barbarian=null;
-	ImageButton wizard=null;
-	ImageButton hunter=null;
-	Button choose=null;
-	TextView class_name=null;
-	TextView description=null;
+	ImageButton previous=null;
+	ImageButton next=null;
+	ImageButton choose=null;
+	View mlayout;
 	
 	String choosed="barbarian";
 	GameSharedPreferences appPrefs;
 	
-	String descriptions[]= { "DESCRIPTION ONE \n BARBARIAN IS COOL BRO \n", "DESCRIPTION TWO", "DESCRIPTION THRE"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,58 +35,55 @@ public class ClassChoose extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		
-		barbarian = (ImageButton) findViewById(R.id.barbarian);  
-	    wizard = (ImageButton) findViewById(R.id.wizard); 
-	    hunter = (ImageButton) findViewById(R.id.hunter); 
-		
-	    choose = (Button) findViewById(R.id.choose);
+		next = (ImageButton) findViewById(R.id.next);  
+	    previous = (ImageButton) findViewById(R.id.previous); 
+	    choose = (ImageButton) findViewById(R.id.choose); 
 	    
-	    class_name = (TextView) findViewById(R.id.class_name);
-	    description = (TextView) findViewById(R.id.description);
+	    next.setBackgroundResource(R.drawable.empty_shop);
+	    previous.setBackgroundResource(R.drawable.empty_shop);
+	    choose.setBackgroundResource(R.drawable.empty_shop);
+	    mlayout= findViewById(R.id.charactermenu);
 	    
 	    Context context = getApplicationContext();
 	    appPrefs = new GameSharedPreferences(context);
 	    
-	    Typeface font = Typeface.createFromAsset(getAssets(), "Fipps-Regular.otf");  
-	    choose.setTypeface(font);
-	    class_name.setTypeface(font);
-	    description.setTypeface(font);
-	    
-	    barbarian.setBackgroundResource(R.drawable.character);
-	    wizard.setBackgroundResource(R.drawable.inactive);
-    	hunter.setBackgroundResource(R.drawable.inactive);	
 		
-		
-	    barbarian.setOnClickListener(new OnClickListener() {
+	    next.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	class_name.setText("-Barbarian-");
-            	description.setText(descriptions[0]);
-            	choosed="barbarian";
-            	barbarian.setBackgroundResource(R.drawable.character);
-            	wizard.setBackgroundResource(R.drawable.inactive);
-            	hunter.setBackgroundResource(R.drawable.inactive);	
+      
+            	if(choosed.equals("barbarian")){
+            	choosed= "wizard";
+            	mlayout.setBackgroundResource(R.drawable.ch_wizard);
+            	}
+            	else if(choosed.equals("wizard")){
+            		choosed= "hunter";
+            		mlayout.setBackgroundResource(R.drawable.ch_hunter);
+            	}
+            	else {
+            		choosed= "barbarian";
+            		mlayout.setBackgroundResource(R.drawable.ch_barbarian);
+            	}
+            		
+
             }
         });	 
-	   wizard.setOnClickListener(new OnClickListener() {
+	   previous.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-            	class_name.setText("-Wizard-");
-            	description.setText(descriptions[1]);
-            	choosed="wizard";
-            	wizard.setBackgroundResource(R.drawable.character);
-            	barbarian.setBackgroundResource(R.drawable.inactive);
-            	hunter.setBackgroundResource(R.drawable.inactive);	
+               	if(choosed.equals("barbarian")){
+                	choosed= "hunter";
+                	mlayout.setBackgroundResource(R.drawable.ch_hunter);
+                	}
+                	else if(choosed.equals("hunter")){
+                		choosed= "wizard";
+                		mlayout.setBackgroundResource(R.drawable.ch_wizard);
+                	}
+                	else {
+                		choosed= "barbarian";
+                		mlayout.setBackgroundResource(R.drawable.ch_barbarian);
+                	}
             }
         });
-	   hunter.setOnClickListener(new OnClickListener() {
-           public void onClick(View v) {
-           	class_name.setText("-Hunter-");
-           	description.setText(descriptions[2]);
-           	choosed="hunter";
-            hunter.setBackgroundResource(R.drawable.character);
-           	barbarian.setBackgroundResource(R.drawable.inactive);
-           	wizard.setBackgroundResource(R.drawable.inactive);	
-           }
-       });	
+
 	   
 	   choose.setOnClickListener(new OnClickListener() {
            public void onClick(View v) {
