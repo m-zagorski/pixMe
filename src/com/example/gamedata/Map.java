@@ -7,7 +7,7 @@ public class Map {
 			String baseexperience) {
 		super();
 		this.name = name;
-		this.monstersCount= monstersCount;
+		this.monstersCount = monstersCount;
 		this.basegold = basegold;
 		this.baseexperience = baseexperience;
 	}
@@ -28,7 +28,6 @@ public class Map {
 		this.monstersCount = monstersCount;
 	}
 
-
 	public String getBasegold() {
 		return basegold;
 	}
@@ -44,7 +43,5 @@ public class Map {
 	public void setBaseexperience(String baseexperience) {
 		this.baseexperience = baseexperience;
 	}
-
-	
 
 }

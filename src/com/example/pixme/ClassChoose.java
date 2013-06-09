@@ -1,102 +1,86 @@
 package com.example.pixme;
 
-import com.example.gamedata.GameSharedPreferences;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.example.gamedata.GameSharedPreferences;
 
 public class ClassChoose extends Activity {
-	ImageButton previous=null;
-	ImageButton next=null;
-	ImageButton choose=null;
+	ImageButton previous = null;
+	ImageButton next = null;
+	ImageButton choose = null;
 	View mlayout;
-	
-	String choosed="barbarian";
+
+	String choosed = "barbarian";
 	GameSharedPreferences appPrefs;
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_class_choose);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		
-		next = (ImageButton) findViewById(R.id.next);  
-	    previous = (ImageButton) findViewById(R.id.previous); 
-	    choose = (ImageButton) findViewById(R.id.choose); 
-	    
-	    next.setBackgroundResource(R.drawable.empty_shop);
-	    previous.setBackgroundResource(R.drawable.empty_shop);
-	    choose.setBackgroundResource(R.drawable.empty_shop);
-	    mlayout= findViewById(R.id.charactermenu);
-	    
-	    Context context = getApplicationContext();
-	    appPrefs = new GameSharedPreferences(context);
-	    
-		
-	    next.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-      
-            	if(choosed.equals("barbarian")){
-            	choosed= "wizard";
-            	mlayout.setBackgroundResource(R.drawable.ch_wizard);
-            	}
-            	else if(choosed.equals("wizard")){
-            		choosed= "hunter";
-            		mlayout.setBackgroundResource(R.drawable.ch_hunter);
-            	}
-            	else {
-            		choosed= "barbarian";
-            		mlayout.setBackgroundResource(R.drawable.ch_barbarian);
-            	}
-            		
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            }
-        });	 
-	   previous.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-               	if(choosed.equals("barbarian")){
-                	choosed= "hunter";
-                	mlayout.setBackgroundResource(R.drawable.ch_hunter);
-                	}
-                	else if(choosed.equals("hunter")){
-                		choosed= "wizard";
-                		mlayout.setBackgroundResource(R.drawable.ch_wizard);
-                	}
-                	else {
-                		choosed= "barbarian";
-                		mlayout.setBackgroundResource(R.drawable.ch_barbarian);
-                	}
-            }
-        });
+		next = (ImageButton) findViewById(R.id.next);
+		previous = (ImageButton) findViewById(R.id.previous);
+		choose = (ImageButton) findViewById(R.id.choose);
 
-	   
-	   choose.setOnClickListener(new OnClickListener() {
-           public void onClick(View v) {
-        	  appPrefs.createSave("true");
-        	  appPrefs.createGame(choosed);
-        	  startActivity(new Intent(ClassChoose.this, Tawern.class));
-           }
-       });	
-		
-		
-		
-		
-		
+		next.setBackgroundResource(R.drawable.empty_shop);
+		previous.setBackgroundResource(R.drawable.empty_shop);
+		choose.setBackgroundResource(R.drawable.empty_shop);
+		mlayout = findViewById(R.id.charactermenu);
+
+		Context context = getApplicationContext();
+		appPrefs = new GameSharedPreferences(context);
+
+		next.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+				if (choosed.equals("barbarian")) {
+					choosed = "wizard";
+					mlayout.setBackgroundResource(R.drawable.ch_wizard);
+				} else if (choosed.equals("wizard")) {
+					choosed = "hunter";
+					mlayout.setBackgroundResource(R.drawable.ch_hunter);
+				} else {
+					choosed = "barbarian";
+					mlayout.setBackgroundResource(R.drawable.ch_barbarian);
+				}
+
+			}
+		});
+		previous.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if (choosed.equals("barbarian")) {
+					choosed = "hunter";
+					mlayout.setBackgroundResource(R.drawable.ch_hunter);
+				} else if (choosed.equals("hunter")) {
+					choosed = "wizard";
+					mlayout.setBackgroundResource(R.drawable.ch_wizard);
+				} else {
+					choosed = "barbarian";
+					mlayout.setBackgroundResource(R.drawable.ch_barbarian);
+				}
+			}
+		});
+
+		choose.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				appPrefs.createSave("true");
+				appPrefs.createGame(choosed);
+				startActivity(new Intent(ClassChoose.this, Tawern.class));
+			}
+		});
+
 	}
 
 	@Override

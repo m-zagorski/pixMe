@@ -119,7 +119,6 @@ public class Shop extends Activity {
 	    toLowLevel =  MediaPlayer.create(this, (getResources().getIdentifier(appPrefs.getCharacterClass()+"tolowlevel", "raw", getPackageName())));
 		if(appPrefs.getMusicStatus().equals("yes")){
 	        bsmithSpeech.start();
-	      
 		    }
 		
 		shopOne = (ImageButton) findViewById(R.id.shop1);

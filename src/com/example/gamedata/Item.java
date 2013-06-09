@@ -1,17 +1,18 @@
 package com.example.gamedata;
 
 public class Item {
-	private String type,icon,level, armor, damage, buy;
-	
-	  public Item(String type, String icon, String level, String armor, String damage, String buy) {
-this.type=type;
-this.icon=icon;
-this.level=level;
-this.armor=armor;
-this.damage=damage;
-this.buy=buy;
+	private String type, icon, level, armor, damage, buy;
 
-	    }
+	public Item(String type, String icon, String level, String damage,
+			String armor, String buy) {
+		this.type = type;
+		this.icon = icon;
+		this.level = level;
+		this.armor = armor;
+		this.damage = damage;
+		this.buy = buy;
+
+	}
 
 	public String getType() {
 		return type;
@@ -36,6 +37,5 @@ this.buy=buy;
 	public String getBuy() {
 		return buy;
 	}
-
 
 }

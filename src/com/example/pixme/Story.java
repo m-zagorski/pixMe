@@ -1,42 +1,39 @@
 package com.example.pixme;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class Story extends Activity implements OnTouchListener {
-	//Intent intent=null;
-	Context ctx=null;
+	// Intent intent=null;
+	Context ctx = null;
 
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_story);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		TextView note= (TextView) findViewById(R.id.note);  
-		//intent=new Intent(getApplicationContext(), ClassChoose.class); 
-		Context ctx=getApplicationContext();
-		
-		Typeface font = Typeface.createFromAsset(getAssets(), "Fipps-Regular.otf");  
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		TextView note = (TextView) findViewById(R.id.note);
+		// intent=new Intent(getApplicationContext(), ClassChoose.class);
+		Context ctx = getApplicationContext();
+
+		Typeface font = Typeface.createFromAsset(getAssets(),
+				"Fipps-Regular.otf");
 		note.setTypeface(font);
 		note.setText("Click anywhere to continue...");
-		
-		
-		
+
 	}
 
 	@Override
@@ -49,7 +46,7 @@ public class Story extends Activity implements OnTouchListener {
 	@Override
 	public boolean onTouch(View arg0, MotionEvent arg1) {
 		Intent i = new Intent(ctx, ClassChoose.class);
-		ctx.startActivity(i); 
+		ctx.startActivity(i);
 		return false;
 	}
 
